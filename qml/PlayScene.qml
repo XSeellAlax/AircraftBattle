@@ -11,9 +11,9 @@ import "common"
 
 Scene {
     id: scene
-    width: 512
-    height: 767
+    width: map.picture.width
+    height: map.picture.height
 
-    Map { anchors.horizontalCenter: parent.horizontalCenter }
-
+    //background
+    Map { id: map; anchors.horizontalCenter: parent.horizontalCenter; Component.onCompleted: { switch_map(5) } }
 }

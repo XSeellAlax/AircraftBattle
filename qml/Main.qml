@@ -5,10 +5,22 @@ GameWindow {
     id: gameWindow
     screenHeight: 767
     screenWidth: 512
-    activeScene: playScene
-
+    //activeScene: playScene
 
     PlayScene {
         id: playScene
+        visible: false
+    }
+
+    MenuScene {
+        id: menuScene
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            menuScene.visible = false
+            playScene.visible = true
+        }
     }
 }
