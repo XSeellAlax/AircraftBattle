@@ -60,4 +60,5 @@ macx {
 }
 
 DISTFILES += \
+    qml/Map.qml \
     qml/PlayScene.qml
