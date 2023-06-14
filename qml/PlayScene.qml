@@ -1,3 +1,8 @@
+/*
+fuction: scroll of the map
+author: zouyujie
+date: 2023.6.13
+*/
 import QtQuick 2.0
 import Felgo 3.0
 import "common"
