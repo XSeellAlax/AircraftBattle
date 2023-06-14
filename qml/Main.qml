@@ -46,7 +46,7 @@ GameWindow {
         // the "logical size" - the scene content is auto-scaled to match the GameWindow size
         width: 640
         height: 960
-        Image {source:"../assets/bg.jpg"; anchors.fill:parent}
+        Image {source:"../assets/bg.jpeg"; anchors.fill:parent}
         PhysicsWorld {debugDrawVisible: false} // put it anywhere in the Scene, so the collision detection between monsters and projectiles can be done
 
         MultiResolutionImage {
@@ -62,81 +62,14 @@ GameWindow {
         // the EntityBase could also be put into an own qml file (e.g. Monster.qml)
         Component {
             id: monster
+            Enemy{id:monsters}
 
-            EntityBase {
-                entityType: "monster" // required for removing all of these entities when the game is lost
-
-                MultiResolutionImage {
-                    id: monsterImage
-                    source: "../assets/enemy.png"
-                }
-
-                x: utils.generateRandomValueBetween(monsterImage.width, scene.width - monsterImage.implicitWidth)
-
-                NumberAnimation on y {
-                    from: -monsterImage.height // move the monster to the left side of the screen
-                    to: scene.height // start at the right side
-
-                    duration: utils.generateRandomValueBetween(2000, 4000) // vary animation duration between 2-4 seconds for the 480 px scene width
-                    onStopped: {
-                        console.debug("monster reached base - change to gameover scene because the player lost")
-                       // changeToGameOverScene(false)
-                    }
-                }
-
-                BoxCollider {
-                    anchors.fill: monsterImage // make the collider as big as the image
-                    collisionTestingOnlyMode: true // use Box2D only for collision detection, move the entity with the NumberAnimation above
-                    fixture.onBeginContact: {
-
-                        // if the collided type was a projectile, both can be destroyed and the player gets a point
-                        var collidedEntity = other.getBody().target
-                        console.debug("collided with entity", collidedEntity.entityType)
-                        // monsters could also collide with other monsters because they have a random speed - alternatively, collider categories could be used
-                        if(collidedEntity.entityType === "projectile") {
-                            monstersDestroyed++
-                            // remove the projectile entity
-                            collidedEntity.removeEntity()
-                            // remove the monster
-                            removeEntity()
-                        }
-                    }
-                }// BoxCollider
-            }// EntityBase
         }// Component
 
         Component {
             id: projectile
+            Projectile{id:projectiles}
 
-            EntityBase {
-                entityType: "projectile"
-
-                MultiResolutionImage {
-                    id: monsterImage
-                    source: "../assets/heroAmmoFlash02.png"
-                }
-
-                // these values can then be set when a new projectile is created in the MouseArea below
-                property point destination
-                property int moveDuration
-
-                PropertyAnimation on x {
-                    from: player.x
-                    to: destination.x
-                    duration: moveDuration
-                }
-
-                PropertyAnimation on y {
-                    from: player.y
-                    to: destination.y
-                    duration: moveDuration
-                }
-
-                BoxCollider {
-                    anchors.fill: monsterImage
-                    collisionTestingOnlyMode: true
-                }
-            }// EntityBase
         }// Component
 
         SoundEffect {
@@ -157,7 +90,7 @@ GameWindow {
                             );
 
                 // Bail out if we are shooting down or backwards
-                //if(offset.x <= 0) return;
+
 
                 // Determine where we wish to shoot the projectile to
                 var realX = scene.gameWindowAnchorItem.width
@@ -178,30 +111,7 @@ GameWindow {
         }// onReleased
     }// MouseArea
 
-    // switch to this scene, after the game was lost or won and it switches back to the gameScene after 3 seconds
-    Scene {
-        id: gameOverScene
-        visible: false
-        Text {
-            anchors.centerIn: parent
-            text: gameWon ? "You won :)" : "You lost"
-        }
 
-        onVisibleChanged: {
-            if(visible) {
-                returnToGameSceneTimer.start()  // make the scene invisible after 3 seconds, after it got visible
-            }
-        }
-
-        Timer {
-            id: returnToGameSceneTimer
-            interval: 3000
-            onTriggered: {
-                scene.visible = true
-                gameOverScene.visible = false
-            }
-        }
-    }// GameOverScene
 
     Timer {
         running: scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
@@ -215,16 +125,16 @@ GameWindow {
         entityManager.createEntityFromComponent(monster)
     }
 
-    function changeToGameOverScene(won) {
+//    function changeToGameOverScene(won) {
 
-        gameWon = won
+//        gameWon = won
 
-        gameOverScene.visible = true
-        scene.visible = false
+//        gameOverScene.visible = true
+//        scene.visible = false
 
-        // reset the game variables and remove all projectiles and monsters
-        monstersDestroyed = 0
-        entityManager.removeEntitiesByFilter(["projectile", "monster"])
-    }
+//        // reset the game variables and remove all projectiles and monsters
+//        monstersDestroyed = 0
+//        entityManager.removeEntitiesByFilter(["projectile", "monster"])
+//    }
 }
 //![0]

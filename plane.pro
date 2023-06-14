@@ -58,3 +58,8 @@ win32 {
 macx {
     ICON = macx/app_icon.icns
 }
+
+DISTFILES += \
+    qml/Enemy.qml \
+    qml/Gameoverscrene.qml \
+    qml/Projectile.qml
