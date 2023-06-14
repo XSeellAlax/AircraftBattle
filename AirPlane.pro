@@ -61,5 +61,6 @@ macx {
 
 DISTFILES += \
     qml/Map.qml \
+    qml/MenuElement.qml \
     qml/MenuScene.qml \
     qml/PlayScene.qml

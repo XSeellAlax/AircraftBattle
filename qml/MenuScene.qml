@@ -12,6 +12,9 @@ import QtQuick.Controls 2.0
 
 Scene {
     id: scene
+    property alias startMenuElement: column.m_startMenuElement
+    property alias exitMenuElement: column.m_exitMenuElement
+
     width: map.picture.width
     height: map.picture.height
 
@@ -20,41 +23,17 @@ Scene {
     //title
     MultiResolutionImage { id: m_title; source: "../assets/img/title.png"; anchors.horizontalCenter: parent.horizontalCenter }
 
-    //
-    Rectangle {
+
+    //menu option
+    Column {
+        id: column
         width: parent.width
-        height: 300
-        opacity: 0.7
-        y: 300
-        ListView {
-            anchors.fill: parent
-            model: listModel
-            spacing: 5
-            delegate: temp
-        }
-    }
-
-    Component {
-        id: temp
-        Rectangle {
-            width: parent.width; height: 60
-            color: "lightyellow"
-            opacity: 1
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            anchors.verticalCenter: parent.verticalCenter
-            Text {
-                id: name
-                text: m_text
-                anchors.centerIn: parent
-            }
-            radius: 0
-        }
-    }
-
-    ListModel {
-        id: listModel
-        ListElement { m_text: qsTr("Start New Game") }
-        ListElement { m_text: qsTr("Exit") }
+        y: 350
+        spacing: 10
+        property alias m_startMenuElement: mm_startMenuElement
+        property alias m_exitMenuElement: mm_exitMenuElement
+        MenuElement { id: mm_startMenuElement; width: parent.width*0.7; label.text: "Start New Game" }
+        MenuElement { id: mm_exitMenuElement; width: parent.width*0.7; label.text: "Exit" }
     }
 
 }
