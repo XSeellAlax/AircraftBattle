@@ -10,31 +10,32 @@ Item {
     id: map
 
     //the position of the map
-    property string mapSource: "../assets/img/img_bg_level_3.jpg"
+    property string mapSource: "../../assets/img_bg_level_3.jpg"
 
     //a picture
     property var picture: bg1
 
     //set position (project: overlap)
     property int toPosition: bg1.height - 5
+    // create a licenseKey to hide the splash screen
 
     //operator: switch the map
     function switch_map(option) {
         switch (option) {
         case 1:
-            mapSource = "../assets/img/img_bg_level_1.jpg"
+            mapSource = "../../assets/img_bg_level_1.jpg"
             break
         case 2:
-            mapSource = "../assets/img/img_bg_level_2.jpg"
+            mapSource = "../../assets/img_bg_level_2.jpg"
             break
         case 3:
-            mapSource = "../assets/img/img_bg_level_3.jpg"
+            mapSource = "../../assets/img_bg_level_3.jpg"
             break
         case 4:
-            mapSource = "../assets/img/img_bg_level_4.jpg"
+            mapSource = "../../assets/img_bg_level_4.jpg"
             break
         case 5:
-            mapSource = "../assets/img/img_bg_level_5.jpg"
+            mapSource = "../../assets/img_bg_level_5.jpg"
             break
         }
     }
