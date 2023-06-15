@@ -17,6 +17,9 @@ GameWindow {
     PlayScene {
         id: playScene
         visible: false
+
+        myPlaneAnimation1.onStopped: { myPlane.y = playScene.height-88 }
+        myPlaneAnimation2.onStopped: { myPlane.y = playScene.height-88 }
     }
 
     MenuScene {
@@ -29,7 +32,13 @@ GameWindow {
             exitMenuElement.anchors.horizontalCenter = undefined
             sequence.running = true
         }
-        sequence.onStopped: { playScene.visible = true; menuScene.visible = false }
+        sequence.onStopped: {
+            playScene.visible = true;
+            menuScene.visible = false;
+            //check if fullscreen
+            if (!fullscreen) playScene.myPlaneAnimation1.running = true
+            else playScene.myPlaneAnimation2.running = true
+        }
         //click exit
         exitMenuElement.mouseArea.onClicked: { Qt.quit() }
     }

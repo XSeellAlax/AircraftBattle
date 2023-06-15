@@ -59,4 +59,20 @@ Scene {
         }
         NumberAnimation { property: "y"; easing.type: Easing.InExpo; target: myPlane; to: -500; duration: 800 }
     }
+
+    //menu music
+    AudioManager {
+        id: audioManager
+    }
+
+    Timer {
+        id: musicDelayTimer
+        interval: 1500
+        repeat: false
+        onTriggered: { audioManager.backgroundPlayer.play() }
+    }
+
+    Component.onCompleted: {
+        musicDelayTimer.start()
+    }
 }

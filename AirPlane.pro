@@ -60,6 +60,7 @@ macx {
 }
 
 DISTFILES += \
+    qml/AudioManager.qml \
     qml/Map.qml \
     qml/MenuElement.qml \
     qml/MenuScene.qml \
