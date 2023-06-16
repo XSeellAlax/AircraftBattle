@@ -10,36 +10,17 @@ import QtQuick.Controls 2.0
 
 GameWindow {
     id: gameWindow
+    property alias gameWindow: gameWindow
+
     screenHeight: 960
     screenWidth: 640
-    //activeScene: playScene
+    //activeScene: menuScene
 
-    PlayScene {
-        id: playScene
-        visible: false
-
-        myPlaneAnimation1.onStopped: { myPlane.y = playScene.height-88 }
-        myPlaneAnimation2.onStopped: { myPlane.y = playScene.height-88 }
+    Component.onCompleted: {
+        mainItemLoader.source = "MainItem.qml"
     }
 
-    MenuScene {
-        id: menuScene
-        //click start
-        startMenuElement.mouseArea.onClicked: {
-            title.anchors.horizontalCenter = undefined
-            startMenuElement.anchors.horizontalCenter = undefined
-            settingMenuElement.anchors.horizontalCenter = undefined
-            exitMenuElement.anchors.horizontalCenter = undefined
-            sequence.running = true
-        }
-        sequence.onStopped: {
-            playScene.visible = true;
-            menuScene.visible = false;
-            //check if fullscreen
-            if (!fullscreen) playScene.myPlaneAnimation1.running = true
-            else playScene.myPlaneAnimation2.running = true
-        }
-        //click exit
-        exitMenuElement.mouseArea.onClicked: { Qt.quit() }
+    Loader {
+        id: mainItemLoader
     }
 }

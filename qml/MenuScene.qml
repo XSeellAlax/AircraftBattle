@@ -11,24 +11,26 @@ import QtGraphicalEffects 1.0
 
 // EMPTY SCENE
 
-Scene {
+SceneBase {
     id: scene
     property alias startMenuElement: column.m_startMenuElement
     property alias settingMenuElement: column.m_settingMenuElement
     property alias exitMenuElement: column.m_exitMenuElement
     property alias title: m_title
     property alias sequence: m_sequence
+    property alias sequence_restore: m_sequence_restore
     property alias myPlane: m_myPlane
 
     width: map.picture.width
     height: map.picture.height
     //limit visual range
-    clip: true
+    //clip: true
 
     //background
-    Map { id: map; anchors.horizontalCenter: parent.horizontalCenter }
+    Map { id: map; anchors.fill: scene.gameWindowAnchorItem }
+
     //title
-    MultiResolutionImage { id: m_title; source: "../assets/img/title.png"; anchors.horizontalCenter: parent.horizontalCenter }
+    MultiResolutionImage { id: m_title; source: "../assets/img/title.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter }
     //menu option
     Column {
         id: column
@@ -43,7 +45,7 @@ Scene {
         MenuElement { id: mm_exitMenuElement; width: parent.width*0.7; label.text: "Exit" }
     }
     //myPlane
-    MultiResolutionImage { id: m_myPlane; source: "../assets/img/hero2.png"; anchors.horizontalCenter: parent.horizontalCenter; y: parent.height - 85 }
+    MultiResolutionImage { id: m_myPlane; source: "../assets/img/hero2.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter; y: parent.height - 88 }
 
     //Animation after starting
     SequentialAnimation {
@@ -58,6 +60,21 @@ Scene {
             NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: exitMenuElement; to: 550; duration: 800 }
         }
         NumberAnimation { property: "y"; easing.type: Easing.InExpo; target: myPlane; to: -500; duration: 800 }
+    }
+
+    //restore posititon by animation
+    SequentialAnimation {
+        id: m_sequence_restore
+        running: false
+        ParallelAnimation {
+            id: m_parallel_restore
+
+            NumberAnimation { property: "y"; easing.type: Easing.InOutBack; target: title; to: 0; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: startMenuElement; to: scene.gameWindowAnchorItem.width * 0.3 / 2; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: settingMenuElement; to: scene.gameWindowAnchorItem.width * 0.3 / 2; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: exitMenuElement; to: scene.gameWindowAnchorItem.width * 0.3 / 2; duration: 800 }
+        }
+        NumberAnimation { property: "y"; easing.type: Easing.InExpo; target: myPlane; to: map.picture.height - 88; duration: 800 }
     }
 
     //menu music

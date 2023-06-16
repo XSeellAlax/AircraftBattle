@@ -12,7 +12,8 @@ Rectangle {
     property alias label: m_label
     property alias mouseArea: m_area
 
-    anchors.horizontalCenter: parent.horizontalCenter
+    //anchors.horizontalCenter: parent.horizontalCenter
+    x: parent.width * 0.3 / 2
     width: parent.width * 0.7; height: 60
     color: "lightyellow"
     opacity: 0.8
