@@ -4,16 +4,17 @@ import Felgo 3.0
 import QtQuick 2.0
 
 GameWindow {
+    id:mainscene
+
     // the size of the Window can be changed at runtime by pressing the number keys 1-7
     // the content of the logical scene size (480x320 by default) gets scaled to the window size based on the scaleMode
     screenWidth: 640
     screenHeight: 960
     activeScene: scene
-
     // create a licenseKey to hide the splash screen
+    //property alias playerImage: playerImage
     property bool splashFinished: false
     onSplashScreenFinished: { splashFinished = true}
-
 
     // this gets set from Monster, after it reached the player and is read by the GameOverScene to display if the player has won or lost
     property bool gameWon
@@ -30,11 +31,12 @@ GameWindow {
     EntityManager {
         id: entityManager
         entityContainer: scene
+
     }
 
-    BackgroundMusic {
-        source: "../assets/snd/background-music-aac.wav" // will start playing automatically after loading
-    }
+    //    BackgroundMusic {
+    //        source: "../assets/snd/background-music-aac.wav" // will start playing automatically after loading
+    //    }
 
     Rectangle {
         anchors.fill: parent
@@ -46,25 +48,39 @@ GameWindow {
         // the "logical size" - the scene content is auto-scaled to match the GameWindow size
         width: 640
         height: 960
-        Image {source:"../assets/bg.jpeg"; anchors.fill:parent}
+        Image {source:"../assets/mainbg.png";
+            anchors.centerIn: parent
+            width: parent.width*2.6
+            height: parent.height
+        }
         PhysicsWorld {debugDrawVisible: false} // put it anywhere in the Scene, so the collision detection between monsters and projectiles can be done
 
-        MultiResolutionImage {
-            id: player
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 50 // 距离底部 10 像素
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: "../assets/hero.png" // the correct image version is used, based on the GameWindow size
+        Level {
+            // this gets accessed by its id from JoystickControllerHUD below
+            id: level
+
         }
 
+        Component {
+            id: monster1Component
+            Enemy {
+                id: monsters
+            }
+        }
 
+        Player{id:player
+            anchors.bottom: scene.bottom
+            anchors.bottomMargin: 80 // 距离底部 10 像素
+            anchors.horizontalCenter: scene.horizontalCenter
+          //  }
+        }
         // the elements of a component don't get created immediately, but in addTarget()
         // the EntityBase could also be put into an own qml file (e.g. Monster.qml)
-        Component {
-            id: monster
-            Enemy{id:monsters}
+        //        Component {
+        //            id: monster
+        //            Enemy{id:monsters}
 
-        }// Component
+        //        }// Component
 
         Component {
             id: projectile
@@ -72,10 +88,10 @@ GameWindow {
 
         }// Component
 
-        SoundEffect {
-            id: projectileCreationSound
-            source: "../assets/snd/pew-pew-lei.wav" // gets played when a projectile is created below
-        }
+//        SoundEffect {
+//            id: projectileCreationSound
+//            source: "../assets/snd/pew-pew-lei.wav" // gets played when a projectile is created below
+//        }
 
         MouseArea {
             anchors.fill: parent
@@ -94,9 +110,13 @@ GameWindow {
 
                 // Determine where we wish to shoot the projectile to
                 var realX = scene.gameWindowAnchorItem.width
-                var ratio = offset.y / offset.x
+                //if(offset.y <= 0)
+                var ratio = -offset.y / offset.x
+//                else
+//                ratio = offset.y / offset.x
                 var realY = (realX * ratio) + player.y
                 var destination = Qt.point(realX, realY)
+
 
                 // Determine the length of how far we're shooting
                 var offReal = Qt.point(realX - player.x, realY - player.y)
@@ -106,7 +126,7 @@ GameWindow {
 
                 entityManager.createEntityFromComponentWithProperties(projectile, {"destination": destination, "moveDuration": realMoveDuration})
 
-                projectileCreationSound.play()
+               // projectileCreationSound.play()
             }
         }// onReleased
     }// MouseArea
@@ -122,19 +142,19 @@ GameWindow {
 
     function addTarget() {
         console.debug("create a new monster")
-        entityManager.createEntityFromComponent(monster)
+        entityManager.createEntityFromComponent(monster1Component)
     }
 
-//    function changeToGameOverScene(won) {
+    //    function changeToGameOverScene(won) {
 
-//        gameWon = won
+    //        gameWon = won
 
-//        gameOverScene.visible = true
-//        scene.visible = false
+    //        gameOverScene.visible = true
+    //        scene.visible = false
 
-//        // reset the game variables and remove all projectiles and monsters
-//        monstersDestroyed = 0
-//        entityManager.removeEntitiesByFilter(["projectile", "monster"])
-//    }
+    //        // reset the game variables and remove all projectiles and monsters
+    //        monstersDestroyed = 0
+    //        entityManager.removeEntitiesByFilter(["projectile", "monster"])
+    //    }
 }
 //![0]

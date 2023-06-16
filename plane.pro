@@ -62,4 +62,7 @@ macx {
 DISTFILES += \
     qml/Enemy.qml \
     qml/Gameoverscrene.qml \
-    qml/Projectile.qml
+    qml/Level.qml \
+    qml/Player.qml \
+    qml/Projectile.qml \
+    qml/Wall.qml

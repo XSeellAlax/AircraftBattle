@@ -3,7 +3,7 @@ import Felgo 3.0
 
 EntityBase {
     entityType: "monster" // required for removing all of these entities when the game is lost
-
+    property alias monsterImage: monsterImage
     MultiResolutionImage {
         id: monsterImage
         source: "../assets/enemy.png"
@@ -18,7 +18,7 @@ EntityBase {
         duration: utils.generateRandomValueBetween(2000, 4000) // vary animation duration between 2-4 seconds for the 480 px scene width
         onStopped: {
             console.debug("monster reached base - change to gameover scene because the player lost")
-           // changeToGameOverScene(false)
+            // changeToGameOverScene(false)
         }
     }
 
