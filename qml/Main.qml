@@ -1,20 +1,12 @@
 import QtQuick 2.0
 import Felgo 3.0
-
+import "entities"
 GameWindow {
     id: window
-    screenWidth: 960
-    screenHeight: 640
+    screenWidth: 640
+    screenHeight: 960
     activeScene: scene
 
-    // You get free licenseKeys from https://felgo.com/licenseKey
-    // With a licenseKey you can:
-    //  * Publish your games & apps for the app stores
-    //  * Remove the Felgo Splash Screen or set a custom one (available with the Pro Licenses)
-    //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
-    //licenseKey: "<generate one from https://felgo.com/licenseKey>"
-
-    // for creating and destroying entities at runtime (rockets)
     EntityManager {
         id: entityManager
         entityContainer: level
@@ -23,7 +15,7 @@ GameWindow {
     Scene {
         id: scene
         width: 640
-        height: 640
+        height: 960
 
         // background image
         Image {
@@ -44,15 +36,34 @@ GameWindow {
         Level {
             // this gets accessed by its id from JoystickControllerHUD below
             id: level
+        }
 
+        Component {
+            id: monster1Component
+            Enemy {
+                id: monsters
+            }
         }
 
         focus: true
         // forward the input keys to both players
-        Keys.forwardTo: [level.player_red.controller, level.player_blue.controller]
+        Keys.forwardTo: [ level.player_blue.controller]
     }
 
+    Timer {
+        running: true//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
+        repeat: true
+        interval: 1000 // a new target(=monster) is spawned every second
+        onTriggered: addTarget()
+    }
 
+    function addTarget() {
+        //console.debug("create a new monster")
+
+        entityManager.createEntityFromComponent(monster1Component)
+    }
+
+    /*
     JoystickControllerHUD {
         anchors.bottom: parent.bottom
 
@@ -70,6 +81,6 @@ GameWindow {
         property variant playerTwoxisController: level.player_red.getComponent("TwoAxisController")
         onControllerXPositionChanged: playerTwoxisController.xAxis = controllerXPosition;
         onControllerYPositionChanged: playerTwoxisController.yAxis = controllerYPosition;
-    }
+    }*/
 }
 
