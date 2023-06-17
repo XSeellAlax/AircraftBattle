@@ -20,7 +20,7 @@ EntityBase {
 
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
         width: 40
-        height: 16
+        height: 8
 
         anchors.centerIn: parent
 
@@ -37,21 +37,28 @@ EntityBase {
             var fixture = other;
             var body = other.getBody();
             var otherEntity = body.target
+            //collisionSound.play()
 
             // get the entityType of the colliding entity
             var collidingType = otherEntity.entityType
-
+            /*
             if(collidingType === "car" ||
                     collidingType === "rocket") {
+                entity.removeEntity()
+                return
+            }*/
+            if(collidingType === "wall") {
                 entity.removeEntity()
                 return
             }
 
             //can't hit the same wall twice, but onBeginContact called again after rotation has changed
+            /*
             if(otherEntity === lastWall) {
                 return;
             }
             lastWall = otherEntity
+
 
             //apply law of reflection, all calculations in degrees
             var normalAngle = 180 / Math.PI * Math.atan2(contactNormal.y, contactNormal.x)
@@ -64,24 +71,27 @@ EntityBase {
             // it's important to clear the old velocity before applying the impulse, otherwise the rocket would get faster every time it collides with a wall!
             boxCollider.body.linearVelocity = Qt.point(0,0)
 
-            applyForwardImpulse();
+
+            applyForwardImpulse();*/
         }
+
     }
 
     Image {
         id: image
-        source: "../../assets/img/rocket_green.png"
+        source: "../../assets/img/rocket2.png"
         anchors.centerIn: parent
         width: boxCollider.width
         height: boxCollider.height
     }
 
     function applyForwardImpulse() {
-        var power = 1500
+        var power = 1200
         var rad = entity.rotation / 180 * Math.PI
 
         //can't use body.toWorldVector() because the rotation is not instantly
         var localForward = Qt.point(power * Math.cos(rad), power * Math.sin(rad))
+
         boxCollider.body.applyLinearImpulse(localForward, boxCollider.body.getWorldCenter())
     }
 }

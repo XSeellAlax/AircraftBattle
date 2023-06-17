@@ -2,23 +2,27 @@ import QtQuick 2.0
 import Felgo 3.0
 
 EntityBase {
-    id: car
+    id: plane
     // the enityId should be set by the level file!
-    entityType: "car"
+    entityType: "plane"
 
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
 
+    property int health: 10
+
+
     // gets accessed to insert the input when touching the HUDController
     property alias controller: twoAxisController
 
-    readonly property real forwardForce: 8000 * world.pixelsPerMeter
+    readonly property real forwardForce: 20000 * world.pixelsPerMeter
 
     Component.onCompleted: {
-        console.debug("car.onCompleted()")
-        console.debug("car.x:", x)
+        //console.debug("car.onCompleted()")
+        //console.debug("car.x:", x)
         var mapped = mapToItem(world.debugDraw, x, y)
-        console.debug("car.x world:", mapped.x)
+        //time2.running=true
+        //console.debug("car.x world:", mapped.x)
     }
 
     Image {
@@ -50,8 +54,8 @@ EntityBase {
         id: boxCollider
 
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
-        width: 60
-        height: 40
+        width: 75
+        height: 55
 
         anchors.centerIn: parent
 
@@ -68,9 +72,9 @@ EntityBase {
         //torque: twoAxisController.xAxis*2000 * world.pixelsPerMeter * world.pixelsPerMeter
 
         Component.onCompleted: {
-            console.debug("car.physics.x:", x)
+            //console.debug("car.physics.x:", x)
             var mapped = mapToItem(world.debugDraw, x, y)
-            console.debug("car.physics.x world:", mapped.x)
+            //console.debug("car.physics.x world:", mapped.x)
         }
 
         fixture.onBeginContact: {
@@ -79,28 +83,70 @@ EntityBase {
             var component = other.getBody().target
             var collidingType = component.entityType
 
+            if(collidingType === "monster" ||
+                    collidingType === "rocket"){
+                health --;
+            }
+
+            if(health==0){
+                car.destroy()
+                //car.removeEntity()
+            }
             //var
+            /*
             console.debug("car contact with: ", other, body, component)
             console.debug("car collided entity type:", collidingType)
 
             console.debug("car contactNormal:", contactNormal, "x:", contactNormal.x, "y:", contactNormal.y)
-
+            */
         }
+    }
+    Timer {
+        id: time2
+        running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
+        repeat: true
+        interval: 180 // a new target(=monster) is spawned every second
+        onTriggered: fireDo()
     }
 
     function handleInputAction(action) {
         if( action === "fire") {
             // x&y of this component are 0..
-            console.debug("creating weapon at current position x", car.x, "y", car.y)
+            console.debug("creating weapon at current position x", plane.x, "y", plane.y)
             console.debug("image.imagePoints[0].x:", image.imagePoints[0].x, ", image.imagePoints[0].y:", image.imagePoints[0].y)
-
+            //collisionSound.play()
             // this is the point that we defined in Car.qml for the rocket to spawn
             var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
             console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
 
             // create the rocket at the specified position with the rotation of the car that fires it
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": car.rotation})
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
 
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
         }
     }
+    function fireDo() {
+        var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
+        console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
+        collisionSound.play()
+        // create the rocket at the specified position with the rotation of the car that fires it
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+
+    }
+
+    SoundEffect {
+      id: collisionSound
+      //source: "../../assets/img/snd/boxCollision.wav"
+      source: "../../assets/wav/boom.wav"
+    }
+
+    /*
+    onStateChanged: {
+        if(health<=0){
+            console.log("you are failed !")
+            car.removeEntity();
+        }
+    }*/
 }
