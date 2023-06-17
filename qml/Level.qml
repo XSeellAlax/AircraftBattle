@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+ import QtQuick.Controls 2.15
 import Felgo 3.0
 import "entities"
 
@@ -10,15 +10,23 @@ Item {
 
     // use this to insert the input action (which car should fire and which to steer) to the right car
     //property alias player_red: car_red
-    property alias player_blue: plane_main
+    //property alias player_blue: plane_main
 
     // background of the level
+
+    Component.onCompleted: {
+        //Sleep(100)
+
+        timer.running=true
+        //timer.start()
+    }
+    /*
     Image {
         id: playgroundImage
         source: "../assets/img/playground.jpg"
         //source: "../assets/img/playbg.jpeg"
         anchors.fill: parent
-    }
+    }*/
 
     /*
     Car {
@@ -32,6 +40,7 @@ Item {
 
     }*/
 
+    /*
     Plane {
         id: plane_main
         objectName: "plane_main"
@@ -50,7 +59,31 @@ Item {
             "right": Qt.Key_D,
             "fire": Qt.Key_Space
         }
+    }*/
+
+    //
+    //create Enemy aircraft
+    Component {
+        id: enemyComponent
+        Enemy {
+            id: monsters
+        }
     }
+
+    Timer {
+        id: timer
+        running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
+        repeat: true
+        interval: 1000 // a new target(=monster) is spawned every second
+        onTriggered: addTarget()
+    }
+
+    function addTarget() {
+        //console.debug("create a new monster")
+
+        entityManager.createEntityFromComponent(enemyComponent)
+    }
+
 
     Wall {
         id: border_bottom

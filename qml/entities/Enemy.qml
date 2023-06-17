@@ -18,7 +18,7 @@ EntityBase {
         ]*/
     }
 
-    x: utils.generateRandomValueBetween(monsterImage.width, scene.width - monsterImage.implicitWidth)
+    x: utils.generateRandomValueBetween(monsterImage.width, scene.width - monsterImage.width-20)
 
     NumberAnimation on y {
         //from: -monsterImage.height // move the monster to the left side of the screen
@@ -39,7 +39,6 @@ EntityBase {
         anchors.fill: monsterImage // make the collider as big as the image
         collisionTestingOnlyMode: true // use Box2D only for collision detection, move the entity with the NumberAnimation above
         fixture.onBeginContact: {
-
 
             // if the collided type was a projectile, both can be destroyed and the player gets a point
             var collidedEntity = other.getBody().target
@@ -88,9 +87,10 @@ EntityBase {
           //fileName: "../assets/snd/boxCollision.wav"
         }
 
+    }
 
-
-    }// BoxCollider
+}
+    // BoxCollider
     /*
 
     Timer {
@@ -108,4 +108,4 @@ EntityBase {
 
         entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+18, "y": imagePointInWorldCoordinates.y, "rotation": monster.rotation})
     }*/
-}// EntityBase
+// EntityBase
