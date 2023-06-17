@@ -18,6 +18,11 @@ Rectangle {
     color: "lightyellow"
     opacity: 0.8
     radius: 12
+//    border.color: "red"
+//    border.width: 2
+    //focus: false
+    border.color: focus ? "red" : "white"
+    border.width: focus ? 2 : 1
 
     Label {
         id: m_label
@@ -30,7 +35,7 @@ Rectangle {
     MouseArea {
         id: m_area
         anchors.fill: parent
-        onPressed: { menuElement.opacity = 0.6 }
-        onReleased: { menuElement.opacity = 0.8 }
+        onPressed: { menuElement.opacity = 0.6; m_label.font.pixelSize = 18 }
+        onReleased: { menuElement.opacity = 0.8; m_label.font.pixelSize = 20 }
     }
 }

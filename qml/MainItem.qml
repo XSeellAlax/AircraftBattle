@@ -13,14 +13,46 @@ Item {
         id: menuScene
         //click start
         startMenuElement.mouseArea.onClicked: {
-            sequence.running = true
+            if (startMenuElement.focus) sequence.running = true
+            else { startMenuElement.focus = true }
         }
         sequence.onStopped: {
             mainItem.state = "play"
             playScene.myPlaneAnimation.running = true
         }
+        //click setting
+        settingMenuElement.mouseArea.onClicked: {
+            if (settingMenuElement.focus) ;
+            else { settingMenuElement.focus = true; }
+        }
         //click exit
-        exitMenuElement.mouseArea.onClicked: { Qt.quit() }
+        exitMenuElement.mouseArea.onClicked: {
+            if(exitMenuElement.focus) Qt.quit()
+            else { exitMenuElement.focus = true }
+        }
+        //release event ->tip: can't if if if
+        onEnterReleased: {
+            if (startMenuElement.focus) { startMenuElement.opacity = 0.8; startMenuElement.label.font.pixelSize = 20; sequence.running = true }
+            else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.8; settingMenuElement.label.font.pixelSize = 20; }
+            else if(exitMenuElement.focus) { exitMenuElement.opacity = 0.8; exitMenuElement.label.font.pixelSize = 20; Qt.quit() }
+            else startMenuElement.focus = true
+        }
+        onUpReleased: {
+            if (startMenuElement.focus) exitMenuElement.focus = true
+            else if(settingMenuElement.focus) startMenuElement.focus = true
+            else if(exitMenuElement.focus) settingMenuElement.focus = true
+        }
+        onDownReleased: {
+            if (startMenuElement.focus) settingMenuElement.focus = true
+            else if(settingMenuElement.focus) exitMenuElement.focus = true
+            else if(exitMenuElement.focus) startMenuElement.focus = true
+        }
+        //press event for Animation
+        onEnterPressed: {
+            if (startMenuElement.focus) { startMenuElement.opacity = 0.6; startMenuElement.label.font.pixelSize = 18 }
+            else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.6; settingMenuElement.label.font.pixelSize = 18 }
+            else if(exitMenuElement.focus) { exitMenuElement.opacity = 0.6; exitMenuElement.label.font.pixelSize = 18 }
+        }
     }
 
     PlayScene {

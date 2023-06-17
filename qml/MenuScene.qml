@@ -55,9 +55,9 @@ SceneBase {
             id: m_parallel
 
             NumberAnimation { property: "y"; easing.type: Easing.InOutBack; target: title; to: -500; duration: 800 }
-            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: startMenuElement; to: 550; duration: 800 }
-            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: settingMenuElement; to: -400; duration: 800 }
-            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: exitMenuElement; to: 550; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: startMenuElement; to: scene.gameWindowAnchorItem.width; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: settingMenuElement; to: -scene.gameWindowAnchorItem.width; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: exitMenuElement; to: scene.gameWindowAnchorItem.width; duration: 800 }
         }
         NumberAnimation { property: "y"; easing.type: Easing.InExpo; target: myPlane; to: -500; duration: 800 }
     }
@@ -70,9 +70,9 @@ SceneBase {
             id: m_parallel_restore
 
             NumberAnimation { property: "y"; easing.type: Easing.InOutBack; target: title; to: 0; duration: 800 }
-            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: startMenuElement; to: scene.gameWindowAnchorItem.width * 0.3 / 2; duration: 800 }
-            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: settingMenuElement; to: scene.gameWindowAnchorItem.width * 0.3 / 2; duration: 800 }
-            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: exitMenuElement; to: scene.gameWindowAnchorItem.width * 0.3 / 2; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: startMenuElement; to: scene.width * 0.3 / 2; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: settingMenuElement; to: scene.width * 0.3 / 2; duration: 800 }
+            NumberAnimation { property: "x"; easing.type: Easing.InExpo; target: exitMenuElement; to: scene.width * 0.3 / 2; duration: 800 }
         }
         NumberAnimation { property: "y"; easing.type: Easing.InExpo; target: myPlane; to: map.picture.height - 88; duration: 800 }
     }
@@ -90,6 +90,6 @@ SceneBase {
     }
 
     Component.onCompleted: {
-        musicDelayTimer.start()
+        //musicDelayTimer.start()
     }
 }
