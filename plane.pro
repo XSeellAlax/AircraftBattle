@@ -58,3 +58,6 @@ win32 {
 macx {
     ICON = macx/app_icon.icns
 }
+
+DISTFILES += \
+    qml/BombEffect.qml
