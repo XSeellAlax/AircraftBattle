@@ -66,4 +66,5 @@ DISTFILES += \
     qml/MenuElement.qml \
     qml/MenuScene.qml \
     qml/PlayScene.qml \
-    qml/SceneBase.qml
+    qml/SceneBase.qml \
+    qml/ThreeBird.qml

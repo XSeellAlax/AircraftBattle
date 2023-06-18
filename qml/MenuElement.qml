@@ -11,6 +11,7 @@ Rectangle {
     id: menuElement
     property alias label: m_label
     property alias mouseArea: m_area
+    property alias threeBird: m_threeBird
 
     //anchors.horizontalCenter: parent.horizontalCenter
     x: parent.width * 0.3 / 2
@@ -31,11 +32,20 @@ Rectangle {
         font.pixelSize: 20
     }
 
+    //add ThreeBird
+    ThreeBird {
+        id: m_threeBird
+    }
+
     //add click property
     MouseArea {
         id: m_area
         anchors.fill: parent
-        onPressed: { menuElement.opacity = 0.6; m_label.font.pixelSize = 18 }
-        onReleased: { menuElement.opacity = 0.8; m_label.font.pixelSize = 20 }
+
+        hoverEnabled: true
+        onEntered: { menuElement.opacity = 0.6; m_label.font.pixelSize = 18 }
+        onExited: { menuElement.opacity = 0.8; m_label.font.pixelSize = 20 }
+        //onPressed: { menuElement.opacity = 0.6; m_label.font.pixelSize = 18 }
+        //onReleased: { menuElement.opacity = 0.8; m_label.font.pixelSize = 20 }
     }
 }
