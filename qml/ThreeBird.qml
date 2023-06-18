@@ -1,3 +1,8 @@
+/*
+function: sprite animation of three bird
+author: zouyujie
+date: 2023.6.18
+*/
 import QtQuick 2.0
 import Felgo 3.0
 
