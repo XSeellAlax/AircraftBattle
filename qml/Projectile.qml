@@ -14,11 +14,6 @@ EntityBase {
     property int moveDuration
 
     x:player.x
-    //    PropertyAnimation on x {
-    //        from: player.x
-    //        to: destination.x
-    //        duration: moveDuration
-    //    }
 
     PropertyAnimation on y {
         from: player.y
