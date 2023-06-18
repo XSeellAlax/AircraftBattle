@@ -14,7 +14,8 @@ GameWindow {
     // create a licenseKey to hide the splash screen
     //property alias playerImage: playerImage
     property bool splashFinished: false
-    onSplashScreenFinished: { splashFinished = true}
+    onSplashScreenFinished: { splashFinished = true
+    }
 
     // this gets set from Monster, after it reached the player and is read by the GameOverScene to display if the player has won or lost
     property bool gameWon
@@ -34,9 +35,15 @@ GameWindow {
 
     }
 
-    //    BackgroundMusic {
-    //        source: "../assets/snd/background-music-aac.wav" // will start playing automatically after loading
-    //    }
+
+    SoundEffect {
+        id: projectileCreationSound
+        source: "../assets/audio/boom.wav" // gets played when a projectile is created below
+    }
+
+    BackgroundMusic {
+        source: "../assets/snd/music_game.wav" // will start playing automatically after loading
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -44,6 +51,8 @@ GameWindow {
     }
 
     Scene {
+
+
         id: scene
         // the "logical size" - the scene content is auto-scaled to match the GameWindow size
         width: 640
@@ -69,11 +78,23 @@ GameWindow {
         }
 
         Player{id:player
-            anchors.bottom: scene.bottom
-            anchors.bottomMargin: 80 // 距离底部 10 像素
-            anchors.horizontalCenter: scene.horizontalCenter
-          //  }
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 40 // 距离底部 10 像素
+            anchors.horizontalCenter: parent.horizontalCenter
+            TwoAxisController{
+            id:playercontroller
+            inputActionsToKeyCode: {
+                               "up": Qt.Key_W,
+                               "down": Qt.Key_S,
+                               "left": Qt.Key_A,
+                               "right": Qt.Key_D,
+                               "fire": Qt.Key_Space
+                  }
+            }
+
         }
+
+
         // the elements of a component don't get created immediately, but in addTarget()
         // the EntityBase could also be put into an own qml file (e.g. Monster.qml)
         //        Component {
@@ -87,11 +108,6 @@ GameWindow {
             Projectile{id:projectiles}
 
         }// Component
-
-//        SoundEffect {
-//            id: projectileCreationSound
-//            source: "../assets/snd/pew-pew-lei.wav" // gets played when a projectile is created below
-//        }
 
         MouseArea {
             anchors.fill: parent
@@ -111,9 +127,9 @@ GameWindow {
                 // Determine where we wish to shoot the projectile to
                 var realX = scene.gameWindowAnchorItem.width
                 //if(offset.y <= 0)
-                var ratio = -offset.y / offset.x
-//                else
-//                ratio = offset.y / offset.x
+                var ratio = offset.y / offset.x
+                //                else
+                //                ratio = offset.y / offset.x
                 var realY = (realX * ratio) + player.y
                 var destination = Qt.point(realX, realY)
 
@@ -124,9 +140,10 @@ GameWindow {
                 var velocity = 480 // speed of the projectile should be 480pt per second
                 var realMoveDuration = length / velocity * 1000 // multiply by 1000 because duration of projectile is in milliseconds
 
-                entityManager.createEntityFromComponentWithProperties(projectile, {"destination": destination, "moveDuration": realMoveDuration})
-
-               // projectileCreationSound.play()
+                entityManager.createEntityFromComponentWithProperties(projectile, {"x": player.x-20, "moveDuration": realMoveDuration})
+                entityManager.createEntityFromComponentWithProperties(projectile, {"x": player.x+5, "moveDuration": realMoveDuration})
+                //entityManager.createEntityFromComponentWithProperties(projectile, {"destination": destination, "moveDuration": realMoveDuration})
+                projectileCreationSound.play()
             }
         }// onReleased
     }// MouseArea

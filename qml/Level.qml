@@ -46,45 +46,45 @@ Item {
 //}
 
 
-//    Wall {
-//        id: border_bottom
+    Wall {
+        id: border_bottom
 
-//        height: 20
-//        anchors {
-//            left: parent.left
-//            right: parent.right
-//            bottom: parent.bottom
-//        }
-//    }
+        height: 20
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+    }
 
-//    Wall {
-//        id: border_top
+    Wall {
+        id: border_top
 
-//        height: 20
-//        anchors {
-//            top: parent.top
-//            left: parent.left
-//            right: parent.right
-//        }
-//    }
+        height: 20
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+    }
 
-//    Wall {
-//        id: border_left
-//        width: 20
-//        anchors {
-//            top: parent.top
-//            bottom: parent.bottom
-//            left: parent.left
-//        }
-//    }
+    Wall {
+        id: border_left
+        width: 20
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            left: parent.left
+        }
+    }
 
-//    Wall {
-//        id: border_right
-//        width: 20
-//        anchors {
-//            top: parent.top
-//            bottom: parent.bottom
-//            right: parent.right
-//        }
-//    }
+    Wall {
+        id: border_right
+        width: 20
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            right: parent.right
+        }
+    }
 }

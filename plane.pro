@@ -65,4 +65,5 @@ DISTFILES += \
     qml/Level.qml \
     qml/Player.qml \
     qml/Projectile.qml \
+    qml/Sound.qml \
     qml/Wall.qml
