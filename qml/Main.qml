@@ -17,7 +17,9 @@ GameWindow {
     //activeScene: menuScene
 
     Component.onCompleted: {
-        mainItemLoader.source = "MainItem.qml"
+        console.log("the mainutem is created!")
+        mainItemLoader.source = "./scene/MainItem.qml"
+
     }
 
     Loader {

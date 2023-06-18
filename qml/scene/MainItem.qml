@@ -5,8 +5,7 @@ date: 2023.6.16
 */
 import QtQuick 2.0
 import Felgo 3.0
-
-import "scene"
+import "../"
 Item {
     id: mainItem
     property alias playLevl: playScene.levelContral

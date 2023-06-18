@@ -45,7 +45,7 @@ SceneBase {
         MenuElement { id: mm_exitMenuElement; width: parent.width*0.7; label.text: "Exit" }
     }
     //myPlane  ../assets/img/hero2.png
-    MultiResolutionImage { id: m_myPlane; source: "../assets/img/hero2.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter; y: parent.height - 88 }
+    MultiResolutionImage { id: m_myPlane; source: "../../assets/img/hero2.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter; y: parent.height - 88 }
 
     //Animation after starting
     SequentialAnimation {

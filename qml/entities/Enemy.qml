@@ -58,6 +58,7 @@ EntityBase {
 
                 collidedEntity.removeEntity()
                 if(health==1||health==2){
+                    monsterImage.visible=false
                     sprites.visible=true
                 }
 
