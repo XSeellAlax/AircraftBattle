@@ -17,28 +17,25 @@ Item {
     MenuScene {
         id: menuScene
         //click start
-        startMenuElement.mouseArea.onClicked: {
-            if (startMenuElement.focus) sequence.running = true
-            else { startMenuElement.focus = true }
-        }
+        startMenuElement.mouseArea.onEntered: { startMenuElement.focus = true; startMenuElement.threeBird.restart() }
+        startMenuElement.mouseArea.onExited: { startMenuElement.threeBird.visible = false }
+        startMenuElement.mouseArea.onClicked: { if (startMenuElement.focus) sequence.running = true }
         sequence.onStopped: {
             mainItem.state = "play"
             playScene.myPlaneAnimation.running = true
         }
         //click setting
-        settingMenuElement.mouseArea.onClicked: {
-            if (settingMenuElement.focus) ;
-            else { settingMenuElement.focus = true; }
-        }
+        settingMenuElement.mouseArea.onEntered: { settingMenuElement.focus = true; settingMenuElement.threeBird.restart() }
+        settingMenuElement.mouseArea.onExited: { settingMenuElement.threeBird.visible = false }
+        settingMenuElement.mouseArea.onClicked: { if (settingMenuElement.focus) ; }
         //click exit
-        exitMenuElement.mouseArea.onClicked: {
-            if(exitMenuElement.focus) Qt.quit()
-            else { exitMenuElement.focus = true }
-        }
+        exitMenuElement.mouseArea.onEntered: { exitMenuElement.focus = true; exitMenuElement.threeBird.restart() }
+        exitMenuElement.mouseArea.onExited: { exitMenuElement.threeBird.visible = false }
+        exitMenuElement.mouseArea.onClicked: { if(exitMenuElement.focus) Qt.quit() }
         //release event ->tip: can't if if if
         onEnterReleased: {
-            if (startMenuElement.focus) { startMenuElement.opacity = 0.8; startMenuElement.label.font.pixelSize = 20; sequence.running = true }
-            else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.8; settingMenuElement.label.font.pixelSize = 20; }
+            if (startMenuElement.focus) { startMenuElement.opacity = 0.8; startMenuElement.label.font.pixelSize = 20; sequence.running = true; startMenuElement.threeBird.visible = false }
+            else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.8; settingMenuElement.label.font.pixelSize = 20; settingMenuElement.threeBird.visible = false }
             else if(exitMenuElement.focus) { exitMenuElement.opacity = 0.8; exitMenuElement.label.font.pixelSize = 20; Qt.quit() }
             else startMenuElement.focus = true
         }
@@ -54,9 +51,9 @@ Item {
         }
         //press event for Animation
         onEnterPressed: {
-            if (startMenuElement.focus) { startMenuElement.opacity = 0.6; startMenuElement.label.font.pixelSize = 18 }
-            else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.6; settingMenuElement.label.font.pixelSize = 18 }
-            else if(exitMenuElement.focus) { exitMenuElement.opacity = 0.6; exitMenuElement.label.font.pixelSize = 18 }
+            if (startMenuElement.focus) { startMenuElement.opacity = 0.6; startMenuElement.label.font.pixelSize = 18; startMenuElement.threeBird.restart() }
+            else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.6; settingMenuElement.label.font.pixelSize = 18; settingMenuElement.threeBird.restart() }
+            else if(exitMenuElement.focus) { exitMenuElement.opacity = 0.6; exitMenuElement.label.font.pixelSize = 18; exitMenuElement.threeBird.restart() }
         }
     }
 

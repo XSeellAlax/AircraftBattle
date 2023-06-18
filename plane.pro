@@ -60,4 +60,5 @@ macx {
 }
 
 DISTFILES += \
-    qml/BombEffect.qml
+    qml/BombEffect.qml \
+    qml/entities/ThreeBird.qml
