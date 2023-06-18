@@ -20,7 +20,7 @@ EntityBase {
 
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
         width: 40
-        height: 8
+        height: 5
 
         anchors.centerIn: parent
 
@@ -86,7 +86,7 @@ EntityBase {
     }
 
     function applyForwardImpulse() {
-        var power = 1200
+        var power = 1000
         var rad = entity.rotation / 180 * Math.PI
 
         //can't use body.toWorldVector() because the rotation is not instantly

@@ -1,12 +1,13 @@
 import QtQuick 2.0
 import Felgo 3.0
-
+import "../scene"
 EntityBase {
     id: monster
     entityType: "monster" // required for removing all of these entities when the game is lost
     property alias monsterImage: monsterImage
-    property int health: 3
+    property int health: 6
     //rotation: 270
+
     MultiResolutionImage {
         id: monsterImage
         source: "../../assets/img/enemy.png"/*
@@ -33,6 +34,7 @@ EntityBase {
     }
 
 
+
     BoxCollider {
         id:boxCollider
 
@@ -52,11 +54,18 @@ EntityBase {
 
                 collisionParticleEffect.start()
 
+
+
                 collidedEntity.removeEntity()
+                if(health==1||health==2){
+                    sprites.visible=true
+                }
+
                 if(health==0){
                     // remove the monster
                     //monsterImage.source="../../assets/img/enemyAmmoExplo00.png"
                     collisionSound.play()
+                    //sprites.running=true
                     monster.removeEntity()
                 }
             }
@@ -85,6 +94,51 @@ EntityBase {
           //fileName: "../../assets/particle/j1.json"
           fileName: "../../assets/particle/SmokeParticle.json"//fileName: "../../assets/particle/SmokeParticle.json"
           //fileName: "../assets/snd/boxCollision.wav"
+        }
+
+    }
+
+
+    SpriteSequence {
+        id: sprites
+        width: 90
+        height: 90
+        anchors.centerIn: monsterImage
+        visible: false
+        /*
+        Component.onCompleted: {
+            timer.start()
+        }*/
+
+        Sprite {
+            name: "bomb1"
+            source: "../../assets/img/enemyAmmoExplo00.png"
+            to: { "bomb2": 1 }
+            frameDuration: 200
+        }
+        Sprite {
+            name: "bomb2"
+            source: "../../assets/img/enemyAmmoExplo01.png"
+            to: { "bomb3": 1 }
+            frameDuration: 200
+        }
+        Sprite {
+            name: "bomb3"
+            source: "../../assets/img/enemyAmmoExplo02.png"
+            to: { "bomb4": 1 }
+            frameDuration: 200
+        }
+        Sprite {
+            name: "bomb4"
+            source: "../../assets/img/enemyAmmoExplo03.png"
+            to: { "bomb5": 1 }
+            frameDuration: 200
+        }
+        Sprite {
+            name: "bomb5"
+            source: "../../assets/img/enemyAmmoExplo04.png"
+            to: { "bomb1": 1 }
+            frameDuration: 200
         }
 
     }

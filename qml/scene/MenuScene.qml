@@ -30,7 +30,7 @@ SceneBase {
     Map { id: map; anchors.fill: scene.gameWindowAnchorItem }
 
     //title
-    MultiResolutionImage { id: m_title; source: "../assets/img/title.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter }
+    MultiResolutionImage { id: m_title; source: "../../assets/img/title.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter }
     //menu option
     Column {
         id: column

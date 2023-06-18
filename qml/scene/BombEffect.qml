@@ -30,31 +30,31 @@ Item {
 
         Sprite {
             name: "bomb1"
-            source: "../assets/img/enemyAmmoExplo00.png"
+            source: "../../assets/img/enemyAmmoExplo00.png"
             to: { "bomb2": 1 }
             frameDuration: 200
         }
         Sprite {
             name: "bomb2"
-            source: "../assets/img/enemyAmmoExplo01.png"
+            source: "../../assets/img/enemyAmmoExplo01.png"
             to: { "bomb3": 1 }
             frameDuration: 200
         }
         Sprite {
             name: "bomb3"
-            source: "../assets/img/enemyAmmoExplo02.png"
+            source: "../../assets/img/enemyAmmoExplo02.png"
             to: { "bomb4": 1 }
             frameDuration: 200
         }
         Sprite {
             name: "bomb4"
-            source: "../assets/img/enemyAmmoExplo03.png"
+            source: "../../assets/img/enemyAmmoExplo03.png"
             to: { "bomb5": 1 }
             frameDuration: 200
         }
         Sprite {
             name: "bomb5"
-            source: "../assets/img/enemyAmmoExplo04.png"
+            source: "../../assets/img/enemyAmmoExplo04.png"
             to: { "bomb1": 1 }
             frameDuration: 200
         }

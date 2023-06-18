@@ -56,7 +56,7 @@ Item {
 
         Sprite {
             name: "bird"
-            source: "../assets/img/birdSprite.png"
+            source: "../../assets/img/birdSprite.png"
             frameCount: 3
             frameRate: 6
             frameWidth: 34
@@ -73,7 +73,7 @@ Item {
 
         Sprite {
             name: "bird"
-            source: "../assets/img/birdSprite.png"
+            source: "../../assets/img/birdSprite.png"
             frameCount: 3
             frameRate: 6
             frameWidth: 34
@@ -90,7 +90,7 @@ Item {
 
         Sprite {
             name: "bird"
-            source: "../assets/img/birdSprite.png"
+            source: "../../assets/img/birdSprite.png"
             frameCount: 3
             frameRate: 6
             frameWidth: 34

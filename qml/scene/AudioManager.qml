@@ -13,7 +13,7 @@ Item {
 
     MediaPlayer {
         id: m_backgroundPlayer
-        source: "../assets/audio/music_game.wav"
+        source: "../../assets/audio/music_game.wav"
         loops: MediaPlayer.Infinite
     }
 }
