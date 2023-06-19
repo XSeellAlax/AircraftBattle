@@ -22,7 +22,7 @@ Rectangle {
 //    border.color: "red"
 //    border.width: 2
     //focus: false
-    border.color: focus ? "red" : "white"
+    border.color: focus ? "skyblue" : "white"
     border.width: focus ? 2 : 1
 
     Label {
