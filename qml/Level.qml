@@ -8,6 +8,8 @@ Item {
     width: parent.width
     height: parent.height
 
+    property alias timeControl: timer.running
+
     // use this to insert the input action (which car should fire and which to steer) to the right car
     //property alias player_red: car_red
     //property alias player_blue: plane_main
@@ -17,7 +19,7 @@ Item {
     Component.onCompleted: {
         //Sleep(100)
 
-        timer.running=true
+        //timer.running=true
         //timer.start()
     }
     /*
@@ -65,17 +67,60 @@ Item {
     //create Enemy aircraft
     Component {
         id: enemyComponent
-        Enemy {
+        Enemy00 {
             id: monsters
+        }
+    }
+    Component {
+        id: enemyComponent01
+        Enemy01{
+            id: monster01s
+        }
+    }
+    Component {
+        id: enemyComponent02
+        Enemy02{
+            id: monster02s
         }
     }
 
     Timer {
         id: timer
         running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
+        repeat: false
+        interval: 1000 // a new target(=monster) is spawned every second
+        onTriggered: {
+            t0.running=true
+            t1.running=true
+            t2.running=true
+        }
+    }
+    Timer {
+        id: t0
+        running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
         repeat: true
         interval: 1000 // a new target(=monster) is spawned every second
         onTriggered: addTarget()
+    }
+    Timer {
+        id: t1
+        running: false
+        repeat: true
+        interval: 2000
+        onTriggered: {
+            entityManager.createEntityFromComponent(enemyComponent01)
+        }
+
+    }
+    Timer {
+        id: t2
+        running: false
+        repeat: true
+        interval: 3000
+        onTriggered: {
+            entityManager.createEntityFromComponent(enemyComponent02)
+        }
+
     }
 
     function addTarget() {

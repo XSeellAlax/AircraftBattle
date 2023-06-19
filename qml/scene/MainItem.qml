@@ -68,6 +68,7 @@ Item {
             opacity: 1
             myPlaneAnimation.onStopped: {
                 //very important! It solve the problem: the full screen position is different
+                levelContral.timeControl=true
                 myPlane.y = playScene.height-88
             }
             MouseArea {

@@ -10,7 +10,9 @@ EntityBase {
 
     MultiResolutionImage {
         id: monsterImage
-        source: "../../assets/img/enemy.png"/*
+        source: "../../assets/img/enemy.png"
+        anchors.fill: parent
+        /*
         property list<Item> imagePoints: [
             // this imagePoint can be used for creation of the rocket
             // it must be far enough in front of the car that they don't collide upon creation
@@ -51,31 +53,16 @@ EntityBase {
                 health--;
                 //monstersDestroyed++
                 // remove the projectile entity
-
                 collisionParticleEffect.start()
-
-
-
                 collidedEntity.removeEntity()
-                if(health==1||health==2){
-                    monsterImage.visible=false
-                    sprites.visible=true
-                }
-
-                if(health==0){
-                    // remove the monster
-                    //monsterImage.source="../../assets/img/enemyAmmoExplo00.png"
-                    collisionSound.play()
-                    //sprites.running=true
-                    monster.removeEntity()
-                }
             }
             if(collidedEntity.entityType === "plane") {
 
                 collisionSound.play()
                 collisionParticleEffect.start()
+                health=0
                 // remove the monster
-                monster.removeEntity()
+                //monster.removeEntity()
             }
             if(collidedEntity.entityType === "wall") {
                 // remove the monster
@@ -99,11 +86,30 @@ EntityBase {
 
     }
 
+    onHealthChanged: {
+        if(health==0){
+            collisionSound.play()
+
+            monsterImage.visible=false
+            boxCollider.visible=false
+            sprites.visible=true
+            hitted.start()
+        }
+    }
+
+    Timer {
+        id: hitted
+        interval: 500 // a new target(=monster) is spawned every second
+        onTriggered: {
+            monster.removeEntity()
+        }
+    }
+
 
     SpriteSequence {
         id: sprites
-        width: 90
-        height: 90
+        width: 100
+        height: 100
         anchors.centerIn: monsterImage
         visible: false
         /*

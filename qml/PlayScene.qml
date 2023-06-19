@@ -47,6 +47,13 @@ SceneBase {
             "right": Qt.Key_D,
             "fire": Qt.Key_Space
         }
+        onGameOver: {
+            playSceneLoader.active = false
+            menuScene.opacity = 1
+            gameWindow.activeScene = menuScene
+            //restore posititon by animation
+            menuScene.sequence_restore.running = true
+        }
     }
     //Animation myPlane
     NumberAnimation { id: m_myPlaneAnimation; property: "y"; easing.type: Easing.InOutBack; target: myPlane; to: map.picture.height - 88; duration: 1800; running: false }

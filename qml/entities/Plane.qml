@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import Felgo 3.0
+import "../scene"
+
 
 EntityBase {
     id: plane
@@ -10,6 +12,8 @@ EntityBase {
     property alias image: image
 
     property int health: 10
+
+    signal gameOver()
 
 
     // gets accessed to insert the input when touching the HUDController
@@ -85,12 +89,7 @@ EntityBase {
 
             if(collidingType === "monster" ||
                     collidingType === "rocket"){
-                health --;
-            }
-
-            if(health==0){
-                car.destroy()
-                //car.removeEntity()
+                    health --;
             }
             //var
             /*
@@ -102,11 +101,21 @@ EntityBase {
         }
     }
     Timer {
-        id: time2
+        id: timeOver
         running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
-        repeat: true
-        interval: 180 // a new target(=monster) is spawned every second
-        onTriggered: fireDo()
+        interval: 580 // a new target(=monster) is spawned every second
+        onTriggered: gameOver()
+    }
+
+    onHealthChanged: {
+        if(health==1||health==2){
+            collisionSound.play()
+        }
+        if(health==0){
+            image.visible=false
+            bombEffect.visible=true
+            timeOver.running=true
+        }
     }
 
     function handleInputAction(action) {
@@ -135,11 +144,18 @@ EntityBase {
         entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
 
     }
+    BombEffect {
+        id: bombEffect
+        visible: false
+        anchors.centerIn: parent
+        width: 250
+        height: 250
+    }
 
     SoundEffect {
       id: collisionSound
       //source: "../../assets/img/snd/boxCollision.wav"
-      source: "../../assets/wav/boom.wav"
+      source: "../../assets/wav/life_lose.wav"
     }
 
     /*
