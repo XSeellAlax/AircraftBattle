@@ -8,11 +8,6 @@ import Felgo 3.0
 import "../"
 Item {
     id: mainItem
-    property alias playLevl: playScene.levelContral
-    EntityManager {
-        id: entityManager
-        entityContainer: playLevl
-    }
 
     MenuScene {
         id: menuScene
@@ -21,8 +16,11 @@ Item {
         startMenuElement.mouseArea.onExited: { startMenuElement.threeBird.visible = false }
         startMenuElement.mouseArea.onClicked: { if (startMenuElement.focus) sequence.running = true }
         sequence.onStopped: {
-            mainItem.state = "play"
-            playScene.myPlaneAnimation.running = true
+            opacity = 0
+            playSceneLoader.active = true
+            playSceneLoader.visible = true
+            playSceneLoader.item.myPlaneAnimation.running = true
+            gameWindow.activeScene = playSceneLoader.item
         }
         //click setting
         settingMenuElement.mouseArea.onEntered: { settingMenuElement.focus = true; settingMenuElement.threeBird.restart() }
@@ -57,18 +55,31 @@ Item {
         }
     }
 
-    PlayScene {
-        id: playScene
-        myPlaneAnimation.onStopped: {
-            //very important! It solve the problem: the full screen position is different
-            myPlane.y = playScene.height-88
-        }
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                mainItem.state = "menu"
-                //restore posititon by animation
-                menuScene.sequence_restore.running = true
+    Loader {
+        id: playSceneLoader
+        visible: false
+        sourceComponent: playSceneComponent
+    }
+
+    Component {
+        id: playSceneComponent
+        PlayScene {
+            id: playScene
+            opacity: 1
+            myPlaneAnimation.onStopped: {
+                //very important! It solve the problem: the full screen position is different
+                myPlane.y = playScene.height-88
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    //mainItem.state = "menu"
+                    playSceneLoader.active = false
+                    menuScene.opacity = 1
+                    gameWindow.activeScene = menuScene
+                    //restore posititon by animation
+                    menuScene.sequence_restore.running = true
+                }
             }
         }
     }
@@ -85,17 +96,17 @@ Item {
                     //audio
                 }
             }
-        },
-        State {
-            name: "play"
-            PropertyChanges { target: playScene; opacity: 1 }
-            PropertyChanges { target: gameWindow; activeScene: playScene }
-            StateChangeScript {
-                script: {
-                    //
-                }
-            }
         }
+//        State {
+//            name: "play"
+//            PropertyChanges { target: playScene; opacity: 1 }
+//            PropertyChanges { target: gameWindow; activeScene: playScene }
+//            StateChangeScript {
+//                script: {
+//                    //
+//                }
+//            }
+//        }
     ]
 
 }

@@ -18,6 +18,11 @@ SceneBase {
     property alias myPlaneAnimation: m_myPlaneAnimation
     property alias levelContral: level
 
+    EntityManager {
+        id: entityManager
+        entityContainer: level
+    }
+
     width: map.picture.width
     height: map.picture.height
     //clip: true
