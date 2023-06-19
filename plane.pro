@@ -7,7 +7,7 @@ CONFIG += felgo
 
 # Project identifier and version
 # More information: https://felgo.com/doc/felgo-publishing/#project-configuration
-PRODUCT_IDENTIFIER = com.yourcompany.wizardEVP.Temp
+PRODUCT_IDENTIFIER = com.yourcompany.wizardCC.Plane
 PRODUCT_VERSION_NAME = 1.0.0
 PRODUCT_VERSION_CODE = 1
 
@@ -60,10 +60,6 @@ macx {
 }
 
 DISTFILES += \
-    qml/Enemy.qml \
-    qml/Gameoverscrene.qml \
-    qml/Level.qml \
-    qml/Player.qml \
-    qml/Projectile.qml \
-    qml/Sound.qml \
-    qml/Wall.qml
+    qml/#BombEffect.qml \
+    qml/entities#/ThreeBird.qml
+    qml/scene

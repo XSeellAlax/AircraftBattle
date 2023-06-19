@@ -6,6 +6,7 @@ date: 2023.6.13
 import QtQuick 2.0
 import Felgo 3.0
 import "entities"
+import "scene"
 //the following causes Android to not run
 //import "common"
 

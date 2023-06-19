@@ -22,8 +22,8 @@ Rectangle {
 //    border.color: "red"
 //    border.width: 2
     //focus: false
-    border.color: focus ? "skyblue" : "white"
-    border.width: focus ? 5 : 1
+    border.color: focus ? "#1661ab" : "white"
+    border.width: focus ? 2 : 1
 
     Label {
         id: m_label
