@@ -9,7 +9,8 @@ EntityBase {
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
 
-    property int health: 10
+    property int health: 3
+    property int defence: 0
 
 
     // gets accessed to insert the input when touching the HUDController
@@ -85,12 +86,15 @@ EntityBase {
 
             if(collidingType === "monster" ||
                     collidingType === "rocket"){
-                health --;
+                    health --;
             }
 
+            if(collidingType == "Blood Prop")
+                health ++;
+
             if(health==0){
-                car.destroy()
-                //car.removeEntity()
+                plane.destroy()
+                //.removeEntity()
             }
             //var
             /*
@@ -107,6 +111,18 @@ EntityBase {
         repeat: true
         interval: 180 // a new target(=monster) is spawned every second
         onTriggered: fireDo()
+    }
+
+    Timer{
+    id:timer3
+    running: true
+    repeat: true
+    interval: 100
+    onTriggered: blood()
+    }
+
+    function blood(){
+    console.debug("plane blood :" + plane.health)
     }
 
     function handleInputAction(action) {

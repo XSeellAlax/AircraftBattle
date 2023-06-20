@@ -17,7 +17,8 @@ Item {
     Component.onCompleted: {
         //Sleep(100)
 
-        timer.running=true
+        enemytimer.running=true
+        propstimer.running=true
         //timer.start()
     }
     /*
@@ -70,20 +71,76 @@ Item {
         }
     }
 
+
+    Component {
+        id: propsComponent
+        Props {
+            id: bloodprop
+//            entityType:"Blood Prop"
+//            MultiResolutionImage{
+//                id:bloodImage
+//                source: "../../assets/img/blood.png"
+//            }
+        }
+
+    }
+
+//    Component {
+//        id: propsComponent2
+//        Props {
+//            id: shieldprop
+//            entityType:"Shield Prop"
+//            MultiResolutionImage{
+//                id:shieldmage
+//                source: "../../assets/img/shield.png"
+//            }
+//        }
+//}
+
+//    Component {
+//        id: propsComponent3
+//        Props {
+//            id: damegeprop
+//            entityType:"Damege Prop"
+//            MultiResolutionImage{
+//                id:damageImage
+//                source: "../../assets/img/damage.png"
+//            }
+//        }
+//}
+
     Timer {
-        id: timer
+        id: enemytimer
         running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
         repeat: true
         interval: 1000 // a new target(=monster) is spawned every second
         onTriggered: addTarget()
     }
 
+    Timer {
+        id: propstimer
+        running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
+        repeat: true
+        interval: 5000 // a new target(=monster) is spawned every second
+        onTriggered: addProps()
+    }
+
     function addTarget() {
         //console.debug("create a new monster")
-
         entityManager.createEntityFromComponent(enemyComponent)
     }
 
+    function addProps() {
+       // var propstype =  utils.generateRandomValueBetween(0,10)
+       // console.debug("The propstype is "+ propstype)
+        //console.debug("create a new monster")
+        //if(propstype>7)
+        entityManager.createEntityFromComponent(propsComponent)
+//        else if (propstype <= 7 || propstype > 4)
+//        entityManager.createEntityFromComponent(propsComponent2)
+//        else
+//        entityManager.createEntityFromComponent(propsComponent3)
+    }
 
     Wall {
         id: border_bottom
