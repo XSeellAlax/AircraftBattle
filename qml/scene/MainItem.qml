@@ -12,9 +12,9 @@ Item {
     MenuScene {
         id: menuScene
         //click start
-        startMenuElement.mouseArea.onEntered: { startMenuElement.focus = true; startMenuElement.threeBird.restart() }
-        startMenuElement.mouseArea.onExited: { startMenuElement.threeBird.visible = false }
-        startMenuElement.mouseArea.onClicked: { if (startMenuElement.focus) sequence.running = true; playSceneLoader.sourceComponent = playSceneComponent }
+        startMenuElement.focus: startMenuElement.mouse.hovered ? true : false
+        startMenuElement.threeBird.method: startMenuElement.mouse.hovered ? startMenuElement.threeBird.restart() : startMenuElement.threeBird.setVisible()
+        startMenuElement.tapHandler.onTapped: { if (startMenuElement.focus) sequence.running = true; playSceneLoader.sourceComponent = playSceneComponent }
         sequence.onStopped: {
             visible = false
             playSceneLoader.active = true
@@ -23,16 +23,16 @@ Item {
             gameWindow.activeScene = playSceneLoader.item
         }
         //click setting
-        settingMenuElement.mouseArea.onEntered: { settingMenuElement.focus = true; settingMenuElement.threeBird.restart() }
-        settingMenuElement.mouseArea.onExited: { settingMenuElement.threeBird.visible = false }
-        settingMenuElement.mouseArea.onClicked: { if (settingMenuElement.focus) mainItem.state = "setting"; }
+        settingMenuElement.focus: settingMenuElement.mouse.hovered ? true : false
+        settingMenuElement.threeBird.method: settingMenuElement.mouse.hovered ? settingMenuElement.threeBird.restart() : settingMenuElement.threeBird.setVisible()
+        settingMenuElement.tapHandler.onTapped: { if (settingMenuElement.focus) mainItem.state = "setting" }
         //click exit
-        exitMenuElement.mouseArea.onEntered: { exitMenuElement.focus = true; exitMenuElement.threeBird.restart() }
-        exitMenuElement.mouseArea.onExited: { exitMenuElement.threeBird.visible = false }
-        exitMenuElement.mouseArea.onClicked: { if(exitMenuElement.focus) Qt.quit() }
+        exitMenuElement.focus: exitMenuElement.mouse.hovered ? true : false
+        exitMenuElement.threeBird.method: exitMenuElement.mouse.hovered ? exitMenuElement.threeBird.restart() : exitMenuElement.threeBird.setVisible()
+        exitMenuElement.tapHandler.onTapped: { if(exitMenuElement.focus) Qt.quit() }
         //release event ->tip: can't if if if
         onEnterReleased: {
-            if (startMenuElement.focus) { startMenuElement.opacity = 0.8; startMenuElement.label.font.pixelSize = 20; sequence.running = true; startMenuElement.threeBird.visible = false }
+            if (startMenuElement.focus) { startMenuElement.opacity = 0.8; startMenuElement.label.font.pixelSize = 20; sequence.running = true; playSceneLoader.sourceComponent = playSceneComponent; startMenuElement.threeBird.visible = false }
             else if(settingMenuElement.focus) { settingMenuElement.opacity = 0.8; settingMenuElement.label.font.pixelSize = 20; settingMenuElement.threeBird.visible = false }
             else if(exitMenuElement.focus) { exitMenuElement.opacity = 0.8; exitMenuElement.label.font.pixelSize = 20; Qt.quit() }
             else startMenuElement.focus = true
@@ -85,7 +85,7 @@ Item {
 
     SettingScene {
         id: settingScene
-        backImageMouseArea.onClicked: { mainItem.state = "menu" }
+        tapHandler.onTapped: { mainItem.state = "menu" }
     }
 
     state: "menu"

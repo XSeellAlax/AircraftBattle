@@ -3,7 +3,7 @@ fuction: setting scene
 author: zouyujie
 date: 2023.6.20
 */
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 import QtQuick.Controls 2.0
 
@@ -13,7 +13,7 @@ SceneBase {
     id: scene
 //    width: map.picture.width
 //    height: map.picture.height
-    property alias backImageMouseArea: m_backImage.mouseArea
+    property alias tapHandler: tapHandler
     property int selectMap: 1
     width: bg.width
     height: bg.height
@@ -41,14 +41,12 @@ SceneBase {
         MultiResolutionImage {
             id: image
             anchors.fill: parent
-            source: "../../assets/img/img_bg_level_1.jpg"
+            source: "../../assets/img/img_bg_level_3a.jpg"
         }
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: { stage1.opacity = 0.7 }
-            onExited: { stage1.opacity = 1 }
-            onClicked: { selectStage1.visible = true; selectStage2.visible = false; selectStage3.visible = false; selectMap = 1 }
+        HoverHandler { id: mouse1; target: stage1 }
+        opacity: mouse1.hovered ? 0.7 : 1
+        TapHandler {
+            onTapped: { selectStage1.visible = true; selectStage2.visible = false; selectStage3.visible = false; selectMap = 1 }
         }
     }
     MultiResolutionImage {
@@ -78,14 +76,12 @@ SceneBase {
         y: 250
         MultiResolutionImage {
             anchors.fill: parent
-            source: "../../assets/img/img_bg_level_2.jpg"
+            source: "../../assets/img/img_bg_level_5.jpg"
         }
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: { stage2.opacity = 0.7 }
-            onExited: { stage2.opacity = 1 }
-            onClicked: { selectStage1.visible = false; selectStage2.visible = true; selectStage3.visible = false; selectMap = 2 }
+        HoverHandler { id: mouse2; target: stage2 }
+        opacity: mouse2.hovered ? 0.7 : 1
+        TapHandler {
+            onTapped: { selectStage1.visible = false; selectStage2.visible = true; selectStage3.visible = false; selectMap = 2 }
         }
     }
     MultiResolutionImage {
@@ -115,14 +111,12 @@ SceneBase {
         y: 400
         MultiResolutionImage {
             anchors.fill: parent
-            source: "../../assets/img/img_bg_level_3a.jpg"
+            source: "../../assets/img/img_bg_level_4.jpg"
         }
-        MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: { stage3.opacity = 0.7 }
-            onExited: { stage3.opacity = 1 }
-            onClicked: { selectStage1.visible = false; selectStage2.visible = false; selectStage3.visible = true; selectMap = 3 }
+        HoverHandler { id: mouse3; target: stage3 }
+        opacity: mouse3.hovered ? 0.7 : 1
+        TapHandler {
+            onTapped: { selectStage1.visible = false; selectStage2.visible = false; selectStage3.visible = true; selectMap = 3 }
         }
     }
     MultiResolutionImage {
@@ -162,14 +156,9 @@ SceneBase {
         anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height - 120
 
-        property alias mouseArea: m_Area
-        MouseArea {
-            id: m_Area
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: { m_backImage.opacity = 0.7 }
-            onExited: { m_backImage.opacity = 1 }
-        }
+        HoverHandler { id: mouse4; target: m_backImage }
+        TapHandler { id: tapHandler }
+        opacity: mouse4.hovered ? 0.7 : 1
     }
 
 }

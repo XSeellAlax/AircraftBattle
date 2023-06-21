@@ -14,8 +14,12 @@ Item {
 
     property int toPosition: parent.width
 
+    //just running the function
+    property var method: restart
+
     //restart the bird animation
     function restart() { visible = true; spriteSequence1.x = -122; spriteSequence2.x = -78; spriteSequence3.x = -34; m_parallel.restart() }
+    function setVisible() { visible = false }
 
     ParallelAnimation {
         id: m_parallel

@@ -14,7 +14,7 @@ import "scene"
 
 SceneBase {
     id: scene
-    property alias myPlane: m_myPlane
+    property alias myPlane: level.myPlane
     property alias myPlaneAnimation: m_myPlaneAnimation
     property alias levelContral: level
     property alias map: map
@@ -22,6 +22,7 @@ SceneBase {
     EntityManager {
         id: entityManager
         entityContainer: level
+
     }
 
     width: map.picture.width
@@ -30,38 +31,17 @@ SceneBase {
 
     //background
     Map { id: map; anchors.fill: scene.gameWindowAnchorItem }
-
     //myPlane
     //MultiResolutionImage { id: m_myPlane; source: "../assets/img/hero2.png"; anchors.horizontalCenter: parent.horizontalCenter; y: parent.height+360 }
 
-    Plane {
-        id: m_myPlane
-        //objectName: "plane_main"
-        variationType: "mainplane"
-        // rotation in degrees clockwise
-        rotation: 270
-        x: parent.width/2-width/2; y: parent.height+360;
-        inputActionsToKeyCode: {
-            "up": Qt.Key_W,
-            "down": Qt.Key_S,
-            "left": Qt.Key_A,
-            "right": Qt.Key_D,
-            "fire": Qt.Key_Space
-        }
-        onGameOver: {
-            playSceneLoader.active = false
-            menuScene.opacity = 1
-            gameWindow.activeScene = menuScene
-            //restore posititon by animation
-            menuScene.sequence_restore.running = true
-        }
-    }
+
     //Animation myPlane
-    NumberAnimation { id: m_myPlaneAnimation; property: "y"; easing.type: Easing.InOutBack; target: myPlane; to: map.picture.height - 88; duration: 1800; running: false }
+    NumberAnimation { id: m_myPlaneAnimation; property: "y"; easing.type: Easing.InOutBack; target: level.myPlane; to: map.picture.height - 88; duration: 1800; running: false }
 
     PhysicsWorld {
         id: world
         updatesPerSecondForPhysics: 60
+        //debugDrawVisible: true
     }
 
     Level {
@@ -69,5 +49,5 @@ SceneBase {
     }
     focus: true
     // forward the input keys to both players
-    Keys.forwardTo: [ m_myPlane.controller]
+    Keys.forwardTo: [level.myPlane.controller]
 }

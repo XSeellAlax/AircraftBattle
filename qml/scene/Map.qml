@@ -25,19 +25,19 @@ Item {
     function switch_map(option) {
         switch (option) {
         case 1:
-            mapSource = "../../assets/img/img_bg_level_1.jpg"
-            break
-        case 2:
-            mapSource = "../../assets/img/img_bg_level_2.jpg"
-            break
-        case 3:
             mapSource = "../../assets/img/img_bg_level_3a.jpg"
             break
-        case 4:
+        case 2:
+            mapSource = "../../assets/img/img_bg_level_5.jpg"
+            break
+        case 3:
             mapSource = "../../assets/img/img_bg_level_4.jpg"
             break
+        case 4:
+            mapSource = "../../assets/img/img_bg_level_2.jpg"
+            break
         case 5:
-            mapSource = "../../assets/img/img_bg_level_5.jpg"
+            mapSource = "../../assets/img/img_bg_level_3.jpg"
             break
         }
     }

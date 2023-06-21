@@ -4,7 +4,7 @@ author: zouyujie
 date: 2023.6.14
 */
 import Felgo 3.0
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQml.Models 2.15
 import QtQuick.Controls 2.0
 import "scene"
