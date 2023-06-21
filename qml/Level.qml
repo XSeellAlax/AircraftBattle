@@ -120,14 +120,25 @@ Item {
         rotation: 90
         onEntityDestroyed: gameWon()
     }
-    /*
+
     Image {
         id: name
         source: "../assets/img/heidong.png"
         anchors.centerIn: parent
         visible: boss.visible
         z:-1
-    }*/
+        SequentialAnimation on opacity {
+            loops: Animation.Infinite
+            PropertyAnimation {
+                to: 0.35
+                duration: 3000 // 1 second for fade out
+            }
+            PropertyAnimation {
+                to: 1.0
+                duration: 3000 // 1 second for fade in
+            }
+        }
+    }
     /*
     Component {
         id: bossCompent
