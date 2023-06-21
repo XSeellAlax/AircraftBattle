@@ -14,9 +14,9 @@ Item {
         //click start
         startMenuElement.mouseArea.onEntered: { startMenuElement.focus = true; startMenuElement.threeBird.restart() }
         startMenuElement.mouseArea.onExited: { startMenuElement.threeBird.visible = false }
-        startMenuElement.mouseArea.onClicked: { if (startMenuElement.focus) sequence.running = true; playSceneLoader.sourceComponent = playSceneComponent }
+        startMenuElement.mouseArea.onClicked: { if (startMenuElement.focus) sequence.running = true }
         sequence.onStopped: {
-            visible = false
+            opacity = 0
             playSceneLoader.active = true
             playSceneLoader.visible = true
             playSceneLoader.item.myPlaneAnimation.running = true
@@ -25,7 +25,7 @@ Item {
         //click setting
         settingMenuElement.mouseArea.onEntered: { settingMenuElement.focus = true; settingMenuElement.threeBird.restart() }
         settingMenuElement.mouseArea.onExited: { settingMenuElement.threeBird.visible = false }
-        settingMenuElement.mouseArea.onClicked: { if (settingMenuElement.focus) mainItem.state = "setting"; }
+        settingMenuElement.mouseArea.onClicked: { if (settingMenuElement.focus) ; }
         //click exit
         exitMenuElement.mouseArea.onEntered: { exitMenuElement.focus = true; exitMenuElement.threeBird.restart() }
         exitMenuElement.mouseArea.onExited: { exitMenuElement.threeBird.visible = false }
@@ -55,37 +55,34 @@ Item {
         }
     }
 
-    //dynamic loading
     Loader {
         id: playSceneLoader
         visible: false
-        //sourceComponent: playSceneComponent
+        sourceComponent: playSceneComponent
     }
+
     Component {
         id: playSceneComponent
         PlayScene {
             id: playScene
-            visible: true
-            Component.onCompleted: { map.switch_map(settingScene.selectMap) }
+            opacity: 1
             myPlaneAnimation.onStopped: {
                 //very important! It solve the problem: the full screen position is different
                 levelContral.timeControl=true
                 myPlane.y = playScene.height-88
             }
-            onBackspaceReleased: {
-                //mainItem.state = "menu"
-                playSceneLoader.active = false
-                menuScene.visible = true
-                gameWindow.activeScene = menuScene
-                //restore posititon by animation
-                menuScene.sequence_restore.running = true
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    //mainItem.state = "menu"
+                    playSceneLoader.active = false
+                    menuScene.opacity = 1
+                    gameWindow.activeScene = menuScene
+                    //restore posititon by animation
+                    menuScene.sequence_restore.running = true
+                }
             }
         }
-    }
-
-    SettingScene {
-        id: settingScene
-        backImageMouseArea.onClicked: { mainItem.state = "menu" }
     }
 
     state: "menu"
@@ -93,23 +90,24 @@ Item {
     states: [
         State {
             name: "menu"
-            PropertyChanges { target: menuScene; visible: true }
+            PropertyChanges { target: menuScene; opacity: 1 }
             PropertyChanges { target: gameWindow; activeScene: menuScene }
             StateChangeScript {
                 script: {
                     //audio
                 }
             }
-        },
-        State {
-            name: "setting"
-            PropertyChanges { target: settingScene; visible: true }
-            PropertyChanges { target: gameWindow; activeScene: settingScene }
-            StateChangeScript {
-                script: {
-                    //audio
-                }
-            }
         }
+//        State {
+//            name: "play"
+//            PropertyChanges { target: playScene; opacity: 1 }
+//            PropertyChanges { target: gameWindow; activeScene: playScene }
+//            StateChangeScript {
+//                script: {
+//                    //
+//                }
+//            }
+//        }
     ]
+
 }

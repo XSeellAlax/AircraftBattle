@@ -7,11 +7,17 @@ EntityBase {
     entityType: "rocket"
 
     Component.onCompleted: {
-        console.debug("Rocket.onCompleted, width:", width);
+        //console.debug("Rocket.onCompleted, width:", width);
         applyForwardImpulse();
     }
 
     property real angleDeg
+    property int boom: 1
+
+    property alias image:image.source
+    property alias box: boxCollider
+
+    property int power: 1000
 
     rotation: angleDeg
 
@@ -30,8 +36,6 @@ EntityBase {
         body.bullet: true
         // we prevent the physics engine from applying rotation to the rocket, because we will do it ourselves
         body.fixedRotation: true
-
-        property var lastWall: null
 
         fixture.onBeginContact: {
             var fixture = other;
@@ -86,7 +90,7 @@ EntityBase {
     }
 
     function applyForwardImpulse() {
-        var power = 1000
+
         var rad = entity.rotation / 180 * Math.PI
 
         //can't use body.toWorldVector() because the rotation is not instantly

@@ -11,7 +11,12 @@ EntityBase {
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
 
-    property int health: 10
+    property int health: 100
+    property int defenses: 20
+
+    property bool test1: false
+
+    property bool test2: false
 
     signal gameOver()
 
@@ -45,6 +50,54 @@ EntityBase {
         ]
 
     }
+
+    Image {
+        id: image2
+        source: "../../assets/img/heroSuper.png"
+        visible: false
+
+        anchors.centerIn: parent
+        width: 100//boxCollider.width*1.5
+        height: 100
+
+    }
+    Rectangle {
+        color: "yellow"
+        width: 95
+        height: 95
+        radius: 50
+        visible: defenses!=0
+        anchors.centerIn: parent
+        z: 999
+        Image {
+            id: name
+            source: "../../assets/img/heroSuper.png"
+            anchors.fill: parent
+        }
+        SequentialAnimation on opacity {
+            loops: Animation.Infinite
+            PropertyAnimation {
+                to: 0.15
+                duration: 800 // 1 second for fade out
+            }
+            PropertyAnimation {
+                to: 0.48
+                duration: 800 // 1 second for fade in
+            }
+        }
+    }
+
+    /*
+    RotationAnimation {
+            id: rotationAnimation
+            running: true
+            target: image2
+            property: "rotation"
+            to: 360 // 旋转到的角度
+            duration: 1000 // 动画持续时间（毫秒）
+            loops: Animation.Infinite // 控制动画是否循环
+        }*/
+
 
     // this is used as input for the BoxCollider force & torque properties
     TwoAxisController {
@@ -87,30 +140,81 @@ EntityBase {
             var component = other.getBody().target
             var collidingType = component.entityType
 
-            if(collidingType === "monster" ||
-                    collidingType === "rocket"){
-                    health --;
+            if(collidingType==="monster"){
+                hitted(component.boom)
             }
-            //var
-            /*
-            console.debug("car contact with: ", other, body, component)
-            console.debug("car collided entity type:", collidingType)
+            if(component.entityType === "rocket2") {
 
-            console.debug("car contactNormal:", contactNormal, "x:", contactNormal.x, "y:", contactNormal.y)
-            */
+                hitted(2)
+
+                component.removeEntity()
+            }
+            if(component.entityType === "rocket1") {
+
+                hitted(2)
+
+                component.removeEntity()
+            }
+            if(component.entityType === "bullet") {
+
+                hitted(component.boom)
+                component.removeEntity()
+            }
+            if(component.entityType === "DamageProp") {
+
+                test1=true
+            }
+            if(component.entityType === "MuchProp") {
+                test2=true
+            }
+
+            if(component.entityType === "BloodProp") {
+
+                health=100
+            }
+            if(component.entityType === "ShieldProp") {
+
+                defenses=20
+            }
+            if(defenses<0){
+                defenses=0
+            }
+
+            if(health<0){
+                health=0
+            }
+
         }
     }
     Timer {
         id: timeOver
         running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
-        interval: 580 // a new target(=monster) is spawned every second
-        onTriggered: gameOver()
+        interval: 1080 // a new target(=monster) is spawned every second
+        onTriggered: {
+            gameOver()
+            plane.visible=false
+
+        }
+    }
+
+    Timer {
+        id: willOver
+        running: false
+        interval: 450
+        repeat: true
+        onTriggered: {
+            fireDo()
+        }
     }
 
     onHealthChanged: {
         if(health==1||health==2){
             collisionSound.play()
         }
+        if(health<=45){
+           // willOver.running=true
+        }
+
         if(health==0){
             image.visible=false
             bombEffect.visible=true
@@ -118,32 +222,64 @@ EntityBase {
         }
     }
 
+
+    Timer {
+        id: test1Change
+        running:test1
+        interval: 7500
+        onTriggered: {
+            test1=false
+        }
+    }
+    Timer {
+        //id: test1Change
+        running:test2
+        interval: 8000
+        onTriggered: {
+            test2=false
+        }
+    }
+
     function handleInputAction(action) {
         if( action === "fire") {
             // x&y of this component are 0..
-            console.debug("creating weapon at current position x", plane.x, "y", plane.y)
-            console.debug("image.imagePoints[0].x:", image.imagePoints[0].x, ", image.imagePoints[0].y:", image.imagePoints[0].y)
-            //collisionSound.play()
+
             // this is the point that we defined in Car.qml for the rocket to spawn
             var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
-            console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
+            //console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
 
             // create the rocket at the specified position with the rotation of the car that fires it
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
 
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+            if(test1) {
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocketnew.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+            }
+            if(test2) {
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-30, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+30, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+            }
         }
     }
     function fireDo() {
         var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
         console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
-        collisionSound.play()
+        //collisionSound.play()
         // create the rocket at the specified position with the rotation of the car that fires it
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
-
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-25, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+        //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+25, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocketnew.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
 
     }
+    function hitted(amout){
+        if(defenses>0){
+            defenses-=amout
+        }else{
+            health-=amout
+        }
+    }
+
     BombEffect {
         id: bombEffect
         visible: false
@@ -158,11 +294,4 @@ EntityBase {
       source: "../../assets/wav/life_lose.wav"
     }
 
-    /*
-    onStateChanged: {
-        if(health<=0){
-            console.log("you are failed !")
-            car.removeEntity();
-        }
-    }*/
 }
