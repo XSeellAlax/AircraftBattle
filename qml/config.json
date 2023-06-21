@@ -1,0 +1,8 @@
+{
+    "title": "飞机大战",
+    "identifier": "com.yourcompany.wizardCC.Plane",
+    "orientation": "landscape",
+    "versioncode": 1,
+    "versionname": "1.0.0",
+    "stage": "test"
+}

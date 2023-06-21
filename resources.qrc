@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml</file>
+        <file>qml/entities</file>
+        <file>qml/scripts</file>
+    </qresource>
+</RCC>
