@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Felgo 3.0
+import QtQuick.Particles 2.12
 import "../scene"
 
 
@@ -48,7 +49,6 @@ EntityBase {
             // the +30 might have to be adapted if the size of the rocket is changed
             Item {x: image.width/2+30}
         ]
-
     }
 
     Image {
@@ -84,6 +84,50 @@ EntityBase {
                 to: 0.48
                 duration: 800 // 1 second for fade in
             }
+        }
+
+        ParticleSystem {
+            id: particleSystem
+        }
+
+        ImageParticle {
+            groups: ["B"]
+            //anchors.fill: parent
+            source: "qrc:///particleresources/star.png"
+            //color:"#10FF10"
+            color: "gold"
+            greenVariation: 0.8
+            system: particleSystem
+        }
+
+        Emitter {
+            group: "B"
+            emitRate: 800
+            lifeSpan: 450
+            size: 32
+            sizeVariation: 8
+            //velocity: PointDirection{ x: 240; xVariation: 60 }
+            velocity: PointDirection { x: -240; xVariation: 60 }
+            y: 0
+            x: 45
+            width: 20
+            height: 10
+            system: particleSystem
+        }
+
+        Emitter {
+            group: "B"
+            emitRate: 800
+            lifeSpan: 450
+            size: 32
+            sizeVariation: 8
+            //velocity: PointDirection{ x: 240; xVariation: 60 }
+            velocity: PointDirection { x: -240; xVariation: 60 }
+            y: 85
+            x: 45
+            width: 20
+            height: 10
+            system: particleSystem
         }
     }
 
