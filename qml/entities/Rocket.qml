@@ -34,7 +34,7 @@ EntityBase {
         friction: 0.4
         restitution: 0.5
         body.bullet: true
-        collidesWith: Plane
+        //collidesWith: Plane
         groupIndex: -1
         //collisionTestingOnlyMode: true
         // we prevent the physics engine from applying rotation to the rocket, because we will do it ourselves

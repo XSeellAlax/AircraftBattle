@@ -60,7 +60,7 @@ EntityBase {
     Image {
         id: image
         //source: "../../assets/img/rocket_cyan.png"
-        source: "../../assets/img/enemyAmmo04.png"
+        source: "../../assets/img/rocket02.png"
         anchors.centerIn: parent
         width: boxCollider.width
         height: boxCollider.height

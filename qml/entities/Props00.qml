@@ -4,8 +4,10 @@ import Felgo 3.0
 Props {
     id: bloodprop
     entityType:"BloodProp"
-    MultiResolutionImage{
+    Image{
     id:bloodImage
-    source: "../../assets/img/blood.png"}
+    source: "../../assets/img/blood.png"
+    anchors.fill: parent
+    }
 
 }

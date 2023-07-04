@@ -1,8 +1,3 @@
-/*
-fuction: audio management
-author: zouyujie
-date: 2023.6.15
-*/
 import QtQuick 2.0
 import Felgo 3.0
 import QtMultimedia 5.0

@@ -19,6 +19,8 @@ EntityBase {
 
     property bool test2: false
 
+    property int fires: 0
+
     signal gameOver()
 
 
@@ -132,16 +134,17 @@ EntityBase {
         }
     }
 
-    /*
+
     RotationAnimation {
             id: rotationAnimation
             running: true
             target: image2
             property: "rotation"
+            from: 0
             to: 360 // 旋转到的角度
             duration: 1000 // 动画持续时间（毫秒）
             loops: Animation.Infinite // 控制动画是否循环
-        }*/
+        }
 
 
     // this is used as input for the BoxCollider force & torque properties
@@ -272,7 +275,7 @@ EntityBase {
     Timer {
         id: test1Change
         running:test1
-        interval: 7500
+        interval: 10000
         onTriggered: {
             test1=false
         }
@@ -280,7 +283,7 @@ EntityBase {
     Timer {
         //id: test1Change
         running:test2
-        interval: 8000
+        interval: 10000
         onTriggered: {
             test2=false
         }
@@ -288,6 +291,7 @@ EntityBase {
 
     function handleInputAction(action) {
         if( action === "fire") {
+            fires++
             // x&y of this component are 0..
 
             // this is the point that we defined in Car.qml for the rocket to spawn
@@ -298,15 +302,16 @@ EntityBase {
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
 
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
-            if(test1) {
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocketnew.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+            if(test1&&fires%2==0) {
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo01.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
             }
             if(test2) {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"x": imagePointInWorldCoordinates.x-35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"x": imagePointInWorldCoordinates.x+35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
             }
+
         }
-    }
+    }/*
     function fireDo() {
         var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
         console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
@@ -317,7 +322,7 @@ EntityBase {
         entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+25, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
         entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocketnew.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
 
-    }
+    }*/
     function hitted(amout){
         if(defenses>0){
             defenses-=amout
@@ -336,7 +341,6 @@ EntityBase {
 
     SoundEffect {
       id: collisionSound
-      //source: "../../assets/img/snd/boxCollision.wav"
       source: "../../assets/wav/life_lose.wav"
     }
 }

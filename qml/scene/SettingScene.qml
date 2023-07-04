@@ -1,8 +1,3 @@
-/*
-fuction: setting scene
-author: zouyujie
-date: 2023.6.20
-*/
 import QtQuick 2.0
 import Felgo 3.0
 import QtQuick.Controls 2.0
@@ -11,16 +6,18 @@ import QtQuick.Controls 2.0
 
 SceneBase {
     id: scene
-//    width: map.picture.width
-//    height: map.picture.height
     property alias backImageMouseArea: m_backImage.mouseArea
     property int selectMap: 1
-    width: bg.width
-    height: bg.height
+    width: 960//bg.width
+    height: 960//bg.height
 
     //background
     //Map { id: map; anchors.fill: scene.gameWindowAnchorItem }
-    MultiResolutionImage { id: bg; anchors.fill: parent; source: "../../assets/img/settingbg.png" }
+    MultiResolutionImage {
+        id: bg;
+        anchors.fill: parent;
+        source: "../../assets/img/settingbg.jpg"
+    }
 
     /*
      *
@@ -29,14 +26,15 @@ SceneBase {
         id: stageText1
         text: qsTr("Stage 1")
         y: 130
-        x: 50
+        x: 200
+        color: "white"
         font.pixelSize: 30
     }
     Rectangle {
         id: stage1
         width: 100
         height: 100
-        x: 220
+        x: 480
         y: 100
         MultiResolutionImage {
             id: image
@@ -56,7 +54,7 @@ SceneBase {
         height: 60
         width: 60
         source: "../../assets/img/select.png"
-        x: 380
+        x: 700
         y: 120
         visible: true
     }
@@ -67,14 +65,15 @@ SceneBase {
         id: stageText2
         text: qsTr("Stage 2")
         y: 280
-        x: 50
+        x: 200
+        color: "white"
         font.pixelSize: 30
     }
     Rectangle {
         id: stage2
         width: 100
         height: 100
-        x: 220
+        x: 480
         y: 250
         MultiResolutionImage {
             anchors.fill: parent
@@ -93,7 +92,7 @@ SceneBase {
         height: 60
         width: 60
         source: "../../assets/img/select.png"
-        x: 380
+        x: 700
         y: 270
         visible: false
     }
@@ -104,14 +103,15 @@ SceneBase {
         id: stageText3
         text: qsTr("Stage 3")
         y: 430
-        x: 50
+        x: 200
+        color: "white"
         font.pixelSize: 30
     }
     Rectangle {
         id: stage3
         width: 100
         height: 100
-        x: 220
+        x: 480
         y: 400
         MultiResolutionImage {
             anchors.fill: parent
@@ -130,7 +130,7 @@ SceneBase {
         height: 60
         width: 60
         source: "../../assets/img/select.png"
-        x: 380
+        x: 700
         y: 420
         visible: false
     }
@@ -142,13 +142,14 @@ SceneBase {
         id: masterVolumn
         text: qsTr("Volumn")
         y: 550
-        x: 50
+        x: 200
+        color: "white"
         font.pixelSize: 30
     }
     Slider {
         id: volumeSlider
         y: 550
-        x: 200
+        x: 450
         orientation: Qt.Horizontal
         value: 0.8
     }
@@ -160,7 +161,7 @@ SceneBase {
         id: m_backImage
         source: "../../assets/img/back.png"
         anchors.horizontalCenter: parent.horizontalCenter
-        y: parent.height - 120
+        y: parent.height - 220
 
         property alias mouseArea: m_Area
         MouseArea {

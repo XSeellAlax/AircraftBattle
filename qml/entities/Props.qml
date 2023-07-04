@@ -10,9 +10,9 @@ EntityBase {
     property alias propsImage: propsImage
 
     property alias boxContol: boxCollider
-    width: 50
-    height: 50
-    MultiResolutionImage {
+    width: 60
+    height: 60
+    Image {
         id: propsImage
         anchors.fill: parent
     }
@@ -24,9 +24,9 @@ EntityBase {
         from: 0
         to: scene.height // start at the right side
 
-        duration: utils.generateRandomValueBetween(5000, 8000) // vary animation duration between 2-4 seconds for the 480 px scene width
+        duration: utils.generateRandomValueBetween(7000, 10000) // vary animation duration between 2-4 seconds for the 480 px scene width
         onStopped: {
-            console.debug("props reached base - change to gameover scene because the player lost")
+            //console.debug("props reached base - change to gameover scene because the player lost")
             // changeToGameOverScene(false)
         }
     }

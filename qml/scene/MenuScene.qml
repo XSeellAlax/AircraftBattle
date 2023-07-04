@@ -1,8 +1,3 @@
-/*
-fuction: menu interface
-author: zouyujie
-date: 2023.6.14
-*/
 import QtQuick 2.0
 import Felgo 3.0
 import QtQml.Models 2.15
@@ -30,7 +25,7 @@ SceneBase {
     Map { id: map; anchors.fill: scene.gameWindowAnchorItem }
 
     //title
-    MultiResolutionImage { id: m_title; source: "../../assets/img/title.png"; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter }
+    MultiResolutionImage { id: m_title; source: "../../assets/img/title.png"; opacity: 0.5;anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter }
     //menu option
     Column {
         id: column
@@ -40,9 +35,23 @@ SceneBase {
         property alias m_startMenuElement: mm_startMenuElement
         property alias m_settingMenuElement: mm_settingMenuElement
         property alias m_exitMenuElement: mm_exitMenuElement
-        MenuElement { id: mm_startMenuElement; width: parent.width*0.7; label.text: "Start New Game" }
-        MenuElement { id: mm_settingMenuElement; width: parent.width*0.7; label.text: "Setting" }
-        MenuElement { id: mm_exitMenuElement; width: parent.width*0.7; label.text: "Exit" }
+        MenuElement {
+            id: mm_startMenuElement;
+            width: parent.width*0.7;
+            height: 80;
+            label.text: "Start New Game"
+        }
+        MenuElement {
+            id: mm_settingMenuElement;
+            width: parent.width*0.7;
+            height: 80;
+            label.text: "Setting" }
+        MenuElement {
+            id: mm_exitMenuElement;
+            width: parent.width*0.7;
+            height: 80;
+            label.text: "Exit"
+        }
     }
     //myPlane  ../assets/img/hero2.png
     MultiResolutionImage { id: m_myPlane; source: "../../assets/img/hero.png"; rotation: 270; anchors.horizontalCenter: scene.gameWindowAnchorItem.horizontalCenter; y: parent.height - 88 }

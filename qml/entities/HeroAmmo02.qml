@@ -6,7 +6,7 @@ Rocket {
     image: "../../assets/img/heroAmmo02.png"
     power: 2500
     boom: 3
-    box.width: 35
+    box.width: 45
     box.height: 30
     rotation: 90
 

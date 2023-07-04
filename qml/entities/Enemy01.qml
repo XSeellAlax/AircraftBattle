@@ -80,7 +80,7 @@ Enemy {
         from: 0
         to: scene.height // start at the right side
 
-        duration: utils.generateRandomValueBetween(5000, 7000) // vary animation duration between 2-4 seconds for the 480 px scene width
+        duration: utils.generateRandomValueBetween(8000, 9000) // vary animation duration between 2-4 seconds for the 480 px scene width
         onStopped: {
             console.debug("monster reached base - change to gameover scene because the player lost")
             // changeToGameOverScene(false)

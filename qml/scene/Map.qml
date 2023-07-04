@@ -1,8 +1,3 @@
-/*
-fuction: scroll and switch of the map
-author: zouyujie
-date: 2023.6.14
-*/
 import QtQuick 2.0
 import Felgo 3.0
 

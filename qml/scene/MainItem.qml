@@ -1,8 +1,3 @@
-/*
-function: switch screen
-ahthor: zouyjie
-date: 2023.6.16
-*/
 import QtQuick 2.0
 import Felgo 3.0
 import "../"

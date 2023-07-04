@@ -27,10 +27,7 @@ Item {
     // background of the level
 
     Component.onCompleted: {
-        //Sleep(100)
-
-        //timer.running=true
-        //timer.start()
+        music.play()
     }
 
     Plane {
@@ -52,48 +49,7 @@ Item {
 
         }
     }
-    /*
-    Image {
-        id: playgroundImage
-        source: "../assets/img/playground.jpg"
-        //source: "../assets/img/playbg.jpeg"
-        anchors.fill: parent
-    }*/
 
-    /*
-    Car {
-        id: car_red
-        objectName: "car_red"
-        variationType: "carRed"
-        x: 90
-        y: 200
-        // rotation in degrees clockwise
-        rotation: 90
-
-    }*/
-
-    /*
-    Plane {
-        id: plane_main
-        objectName: "plane_main"
-        variationType: "mainplane"
-        x: 320
-        y: 920
-        // rotation in degrees clockwise
-        rotation: 270
-
-        //image.source: "../assets/img/car_blue.png"
-
-        inputActionsToKeyCode: {
-            "up": Qt.Key_W,
-            "down": Qt.Key_S,
-            "left": Qt.Key_A,
-            "right": Qt.Key_D,
-            "fire": Qt.Key_Space
-        }
-    }*/
-
-    //
     //create Enemy aircraft
     Component {
         id: enemyComponent
@@ -154,6 +110,7 @@ Item {
             t0.running=true
             t1.running=true
             t2.running=true
+
             //b3.running=true
             //entityManager.createEntityFromComponent(boss3Component)
         }
@@ -162,7 +119,7 @@ Item {
         id: t0
         running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
         repeat: true
-        interval: 2500 // a new target(=monster) is spawned every second
+        interval: 2800 // a new target(=monster) is spawned every second
         onTriggered: addTarget()
     }
 
@@ -171,7 +128,7 @@ Item {
         id: t1
         running: false
         repeat: true
-        interval: 2500
+        interval: 3200
         onTriggered: {
             entityManager.createEntityFromComponent(enemyComponent01)
         }
@@ -186,18 +143,7 @@ Item {
             entityManager.createEntityFromComponent(enemyComponent02)
         }
 
-    }/*
-    Timer {
-        id: b3
-        running: false
-        //repeat: true
-        interval: 1000
-        onTriggered: {
-            entityManager.createEntityFromComponent(boss3Component)
-        }
-
-    }*/
-
+    }
 
     function addTarget() {
         //console.debug("create a new monster")
@@ -206,22 +152,6 @@ Item {
         entityManager.createEntityFromComponent(enemyComponent)
     }
 
-
-    /*
-    Rectangle {
-        id: gameWon
-        Image {
-            id: won
-            source: "../assets/img/gameWon.png"
-            anchors.fill: parent
-        }
-        width: 650
-        height: 450
-        visible: false
-        //opacity: 0.5
-        anchors.centerIn: parent
-
-    }*/
 
 
     Wall {
@@ -234,7 +164,6 @@ Item {
             top:  parent.bottom
         }
     }
-
 
 
     Wall {
@@ -250,26 +179,7 @@ Item {
         }
     }
 
-    /*
-    Rectangle {
-        Text {
-            id: scoreText
-            text: qsTr("Score: "+ score)
-            anchors.centerIn: parent
-            //Font.pixelSize: 20
 
-        }
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors{
-            top: parent.top
-
-        }
-        color: "#ff0773"
-        opacity: 0.5
-        width: 80
-        height:50
-        //radius: 20
-    }*/
 
     Text {
         id: scoreText
@@ -301,7 +211,7 @@ Item {
         color: "gray"
         font.pixelSize: 100
         //visible: false
-        opacity: 0.5
+        opacity: 0.8
         visible: false
         anchors.centerIn: parent
         font.family: "Arial" // 设置字体系列为 Arial
@@ -388,7 +298,7 @@ Item {
         //visible: score>0
         //anchors.rightMargin: 5
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
+        anchors.bottomMargin: -5
         height: 350
         width: 50
         Image {
@@ -435,7 +345,7 @@ Item {
         //visible: score>=0
         //anchors.leftMargin: 5
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
+        anchors.bottomMargin: -5
         height: 350
         width: 50
 
@@ -452,24 +362,14 @@ Item {
             //radius: 200
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            height:  m_myPlane.defenses/50 * 350/*
-            SequentialAnimation on height {
-                //id: yMove
-                running: score>=1
-                //loops: Animation.Infinite
-                PropertyAnimation {
-                    from:0
-                    to: 200
-                    duration: 2500 // 1 second for fade in
-                }
-            }*/
+            height:  m_myPlane.defenses/50 * 350
         }
     }
     Timer {
         id: proTime
         running: true
         repeat: true
-        interval: 5200
+        interval: 4200
         onTriggered: {
             var num = Math.floor(utils.generateRandomValueBetween(0,4))
             console.log(num)
@@ -493,12 +393,7 @@ Item {
         id: gameOverTime
         running: false
         interval: 8000
-        onTriggered: {/*
-            playSceneLoader.active = false
-            menuScene.opacity = 1
-            gameWindow.activeScene = menuScene
-            //restore posititon by animation
-            menuScene.sequence_restore.running = true*/
+        onTriggered: {
             playSceneLoader.active = false
             menuScene.visible = true
             gameWindow.activeScene = menuScene
@@ -562,5 +457,11 @@ Item {
             bottom: parent.bottom
             right: parent.right
         }
+    }
+    SoundEffect {
+      id: music
+      loops: 100
+      //source: "../../assets/img/snd/boxCollision.wav"
+      source: "../assets/wav/music_game.wav"
     }
 }
