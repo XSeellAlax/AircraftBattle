@@ -3,11 +3,11 @@ import Felgo 3.0
 
 Rocket {
     //image: "../../assets/img/enemyAmmo03.png"
-    image: "../../assets/img/heroAmmo01.png"
-    power: 1000
-    boom: 2
-    box.width: 50
-    box.height: 12
+    image: "../../assets/img/heroAmmo02.png"
+    power: 2500
+    boom: 3
+    box.width: 35
+    box.height: 30
     rotation: 90
 
 }

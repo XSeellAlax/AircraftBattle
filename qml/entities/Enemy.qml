@@ -8,6 +8,7 @@ EntityBase {
     property alias collider: boxCollider
     property alias exploreW: sprites.width
     property alias exploreH: sprites.height
+    property alias hitted: hitted // be hitted
     property int health: 6
     property int score: 1
     property int boom: 1

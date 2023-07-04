@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Felgo 3.0
+import QtQuick.Particles 2.12
 import "../scene"
 
 
@@ -12,7 +13,7 @@ EntityBase {
     property alias image: image
 
     property int health: 100
-    property int defenses: 20
+    property int defenses: 50
 
     property bool test1: false
 
@@ -85,6 +86,50 @@ EntityBase {
                 duration: 800 // 1 second for fade in
             }
         }
+
+        ParticleSystem {
+            id: particleSystem
+        }
+
+        ImageParticle {
+            groups: ["B"]
+            //anchors.fill: parent
+            source: "qrc:///particleresources/star.png"
+            //color:"#10FF10"
+            color: "gold"
+            greenVariation: 0.8
+            system: particleSystem
+        }
+
+        Emitter {
+            group: "B"
+            emitRate: 800
+            lifeSpan: 450
+            size: 32
+            sizeVariation: 8
+            //velocity: PointDirection{ x: 240; xVariation: 60 }
+            velocity: PointDirection { x: -240; xVariation: 60 }
+            y: 0
+            x: 45
+            width: 20
+            height: 10
+            system: particleSystem
+        }
+
+        Emitter {
+            group: "B"
+            emitRate: 800
+            lifeSpan: 450
+            size: 32
+            sizeVariation: 8
+            //velocity: PointDirection{ x: 240; xVariation: 60 }
+            velocity: PointDirection { x: -240; xVariation: 60 }
+            y: 85
+            x: 45
+            width: 20
+            height: 10
+            system: particleSystem
+        }
     }
 
     /*
@@ -112,12 +157,13 @@ EntityBase {
 
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
         width: 75
-        height: 55
+        height: 70
+        groupIndex: -1
 
         anchors.centerIn: parent
 
         density: 0.02
-        friction: 0.4
+        friction: 0.1
         restitution: 0.5
         body.bullet: true
         body.linearDamping: 10
@@ -249,15 +295,15 @@ EntityBase {
             //console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
 
             // create the rocket at the specified position with the rotation of the car that fires it
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
 
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
             if(test1) {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocketnew.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
             }
             if(test2) {
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-30, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+30, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"x": imagePointInWorldCoordinates.x-35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"x": imagePointInWorldCoordinates.x+35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
             }
         }
     }
@@ -293,5 +339,5 @@ EntityBase {
       //source: "../../assets/img/snd/boxCollision.wav"
       source: "../../assets/wav/life_lose.wav"
     }
-
 }
+

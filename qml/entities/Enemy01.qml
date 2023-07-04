@@ -4,14 +4,14 @@ import "../"
 Enemy {
     id: enemy01
     monsterImage.source: "../../assets/img/enemy01.png"
-    width: 70
-    height: 70
+    width: 75
+    height: 75
     //exploreH: 130
     //exploreW: 130
 
     boom: 2
 
-    health: 4
+    health: 5
     //newX:utils.generateRandomValueBetween(monsterImage.width, scene.width - monsterImage.width-20)+10
 
     /*
@@ -23,6 +23,23 @@ Enemy {
         velocity: Qt.point((m_myPlane.x-x)/2, (m_myPlane.y-height/2)/2)
 
     }*/
+    RotationAnimation {
+            id: rotationAnimation
+            running: true
+            target: rotImage
+            property: "rotation"
+            from: 0
+            to: 360 // 旋转到的角度
+            duration: 1000 // 动画持续时间（毫秒）
+            loops: Animation.Infinite // 控制动画是否循环
+        }
+
+    Image {
+        id: rotImage
+        source: "../../assets/img/enemy01-rot.png"
+        visible: !hitted.running
+        anchors.fill: parent
+    }
 
     Rectangle {
         color: "red"//"#FF00FF"
@@ -36,7 +53,7 @@ Enemy {
         SequentialAnimation on opacity {
             loops: Animation.Infinite
             PropertyAnimation {
-                to: 0.25
+                to: 0.5
                 duration: 650 // 1 second for fade out
             }
             PropertyAnimation {
@@ -63,7 +80,7 @@ Enemy {
         from: 0
         to: scene.height // start at the right side
 
-        duration: utils.generateRandomValueBetween(4000, 6000) // vary animation duration between 2-4 seconds for the 480 px scene width
+        duration: utils.generateRandomValueBetween(5000, 7000) // vary animation duration between 2-4 seconds for the 480 px scene width
         onStopped: {
             console.debug("monster reached base - change to gameover scene because the player lost")
             // changeToGameOverScene(false)

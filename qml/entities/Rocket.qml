@@ -34,6 +34,9 @@ EntityBase {
         friction: 0.4
         restitution: 0.5
         body.bullet: true
+        collidesWith: Plane
+        groupIndex: -1
+        //collisionTestingOnlyMode: true
         // we prevent the physics engine from applying rotation to the rocket, because we will do it ourselves
         body.fixedRotation: true
 
@@ -45,38 +48,11 @@ EntityBase {
 
             // get the entityType of the colliding entity
             var collidingType = otherEntity.entityType
-            /*
-            if(collidingType === "car" ||
-                    collidingType === "rocket") {
-                entity.removeEntity()
-                return
-            }*/
+
             if(collidingType === "wall") {
                 entity.removeEntity()
                 return
             }
-
-            //can't hit the same wall twice, but onBeginContact called again after rotation has changed
-            /*
-            if(otherEntity === lastWall) {
-                return;
-            }
-            lastWall = otherEntity
-
-
-            //apply law of reflection, all calculations in degrees
-            var normalAngle = 180 / Math.PI * Math.atan2(contactNormal.y, contactNormal.x)
-            var angleDiff = normalAngle - entity.rotation
-            var newAngle = entity.rotation + 2 * angleDiff + 180
-
-            // manually set the entity rotation, because it is the target and its rotation will be used for the physics body
-            entity.rotation = newAngle
-
-            // it's important to clear the old velocity before applying the impulse, otherwise the rocket would get faster every time it collides with a wall!
-            boxCollider.body.linearVelocity = Qt.point(0,0)
-
-
-            applyForwardImpulse();*/
         }
 
     }

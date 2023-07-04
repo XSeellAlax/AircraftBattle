@@ -5,6 +5,9 @@ Bullet {
     id: bullet2
     //boom: 0.5
 
+    m_width: 60
+    m_height: 40
+
     power: 10000
     m_image.source: "../../assets/img/enemyAmmo03.png"
 

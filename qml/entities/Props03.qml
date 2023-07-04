@@ -3,9 +3,9 @@ import Felgo 3.0
 
 Props {
     id: damageprop
-            entityType:"MuchProp"
-            MultiResolutionImage{
-                id:damageImage
-                source: "../../assets/img/mine.png"
-            }
+    entityType:"MuchProp"
+    MultiResolutionImage{
+         id:damageImage
+         source: "../../assets/img/mine.png"
+    }
 }

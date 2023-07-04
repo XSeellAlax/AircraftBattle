@@ -16,7 +16,7 @@ EntityBase {
 
     property real angleDeg
     property int boom: 1
-    property int power: 5200
+    property int power: 4500
 
 
     rotation: angleDeg
@@ -25,13 +25,14 @@ EntityBase {
         id: boxCollider
 
         width: 60
-        height: 40
+        height: 35
 
         anchors.centerIn: parent
 
         density: 0.003
         friction: 0.4
         restitution: 0.5
+        groupIndex: -2
         //bullet: false
 
         body.fixedRotation: true

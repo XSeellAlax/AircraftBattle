@@ -167,6 +167,20 @@ EntityBase {
     }
 
     SequentialAnimation on x {
+        id: xdo
+        running: false//boss.visible
+        loops: Animation.Infinite
+        PropertyAnimation {
+            to: boss02.x-15
+            duration: 100 // 1 second for fade out
+        }
+        PropertyAnimation {
+            to: boss02.x+15
+            duration: 100 // 1 second for fade in
+        }
+    }
+
+    SequentialAnimation on x {
         id: xMove
         running: false//boss.visible
         loops: Animation.Infinite
@@ -304,8 +318,13 @@ EntityBase {
     }
 
     onHealthChanged: {
+        if(health>=100){
+            xdo.running=true
+        }
+
         if(health<100){
             //timer.interval=320
+            xdo.running=false
             t3.running=true
             timer.running=false
         }

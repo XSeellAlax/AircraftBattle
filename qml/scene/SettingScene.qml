@@ -41,7 +41,7 @@ SceneBase {
         MultiResolutionImage {
             id: image
             anchors.fill: parent
-            source: "../../assets/img/img_bg_level_3a.jpg"
+            source: "../../assets/img/sceen01.png"
         }
         MouseArea {
             anchors.fill: parent
@@ -78,7 +78,7 @@ SceneBase {
         y: 250
         MultiResolutionImage {
             anchors.fill: parent
-            source: "../../assets/img/img_bg_level_5.jpg"
+            source: "../../assets/img/sceen02.png"
         }
         MouseArea {
             anchors.fill: parent
@@ -115,7 +115,7 @@ SceneBase {
         y: 400
         MultiResolutionImage {
             anchors.fill: parent
-            source: "../../assets/img/img_bg_level_4.jpg"
+            source: "../../assets/img/sceen03.png"
         }
         MouseArea {
             anchors.fill: parent

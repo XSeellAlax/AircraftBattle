@@ -15,11 +15,11 @@ Enemy {
         loops: Animation.Infinite
         PropertyAnimation {
             to: 100
-            duration: 1000 // 1 second for fade out
+            duration: 3000 // 1 second for fade out
         }
         PropertyAnimation {
             to: scene.width-150
-            duration: 1000 // 1 second for fade in
+            duration: 3000 // 1 second for fade in
         }
     }/*
     SequentialAnimation on y {
@@ -53,7 +53,7 @@ Enemy {
     Timer {
         id: timer
         running: enemy02.visible//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
-        interval: 50 // a new target(=monster) is spawned every second
+        interval: 20 // a new target(=monster) is spawned every second
         repeat: true
         onTriggered: {
             fireDo()
@@ -69,5 +69,5 @@ Enemy {
 
     score: 5
 
-    health: 10
+    health: 12
 }

@@ -61,6 +61,7 @@ macx {
 
 DISTFILES += \
     qml/#BombEffect.qml \
+    qml/entities/HeroAmmo02.qml
     qml/entities/Props03.qml
     qml/entities/Rocketnew.qml
     qml/entities/Rocket1.qml

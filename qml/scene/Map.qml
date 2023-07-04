@@ -11,8 +11,10 @@ Item {
     width: picture.width
     height: picture.height
 
+    //anchors.fill: parent
+
     //the position of the map
-    property string mapSource: "../../assets/img/img_bg_level_1.jpg"
+    property string mapSource: "../../assets/img/sceen01.png"
 
     //a picture
     property var picture: bg1
@@ -21,17 +23,26 @@ Item {
     property int to_up_Position: -(2*bg1.height -365 -5 -5)
     property int to_down_Position: bg1.height + 360
 
+    Image {
+        source: "../../assets/img/reflect.png"
+        //source: "../../assets/img/reflect-blend.png"
+        //anchors.fill: parent
+        width: picture.width
+        height: picture.height
+        anchors.centerIn: parent
+    }
+
     //operator: switch the map
     function switch_map(option) {
         switch (option) {
         case 1:
-            mapSource = "../../assets/img/img_bg_level_3a.jpg"
+            mapSource = "../../assets/img/sceen01.png"
             break
         case 2:
-            mapSource = "../../assets/img/img_bg_level_5.jpg"
+            mapSource = "../../assets/img/sceen02.png"
             break
         case 3:
-            mapSource = "../../assets/img/img_bg_level_4.jpg"
+            mapSource = "../../assets/img/sceen03.png"
             break
         case 4:
             mapSource = "../../assets/img/img_bg_level_2.jpg"
@@ -75,6 +86,7 @@ Item {
         source: mapSource
         anchors.horizontalCenter: parent.horizontalCenter
         y: -(bg1.height -365 -5)
+
 
         property var temp2: m_temp2
         PropertyAnimation on y {

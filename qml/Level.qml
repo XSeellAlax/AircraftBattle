@@ -386,21 +386,25 @@ Item {
         //anchors.horizontalCenter: parent.horizontalCenter
         anchors.right: parent.right
         //visible: score>0
-        anchors.rightMargin: 5
+        //anchors.rightMargin: 5
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
-        height: 200
-        width: 10
-        opacity: 0.6
+        anchors.bottomMargin: 0
+        height: 350
+        width: 50
+        Image {
+            source: "../assets/img/darken.png"
+            anchors.fill: parent
+        }
         //radius: 200
         Rectangle{
             id: planeHealth
             color: "green"
-            width: 8
+            width: 45
             //radius: 200
+            opacity: 0.4
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            height:  m_myPlane.health/100 * 200/*
+            height:  m_myPlane.health/100 * 350/*
             SequentialAnimation on height {
                 //id: yMove
                 running: score>=1//boss.visible
@@ -429,21 +433,26 @@ Item {
         //anchors.horizontalCenter: parent.horizontalCenter
         anchors.left: parent.left
         //visible: score>=0
-        anchors.leftMargin: 5
+        //anchors.leftMargin: 5
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
-        height: 200
-        width: 10
-        opacity: 0.6
+        anchors.bottomMargin: 0
+        height: 350
+        width: 50
+
+        Image {
+            source: "../assets/img/darken.png"
+            anchors.fill: parent
+        }
         //radius: 200
         Rectangle{
             id: planedefenses
             color: "blue"
-            width: 8
+            width: 45
+            opacity: 0.4
             //radius: 200
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            height:  m_myPlane.defenses/20 * 200/*
+            height:  m_myPlane.defenses/50 * 350/*
             SequentialAnimation on height {
                 //id: yMove
                 running: score>=1

@@ -10,20 +10,11 @@ EntityBase {
     property alias propsImage: propsImage
 
     property alias boxContol: boxCollider
-    width: 80
-    height: 80
+    width: 50
+    height: 50
     MultiResolutionImage {
         id: propsImage
         anchors.fill: parent
-
-        //source: "../../assets/img/blood.png"
-        /*
-        property list<Item> imagePoints: [
-            // this imagePoint can be used for creation of the rocket
-            // it must be far enough in front of the car that they don't collide upon creation
-            // the +30 might have to be adapted if the size of the rocket is changed
-            Item {x: monsterImage.width/2+30}
-        ]*/
     }
 
     x: utils.generateRandomValueBetween(propsImage.width, scene.width - propsImage.width-20)
@@ -33,7 +24,7 @@ EntityBase {
         from: 0
         to: scene.height // start at the right side
 
-        duration: utils.generateRandomValueBetween(3000, 5000) // vary animation duration between 2-4 seconds for the 480 px scene width
+        duration: utils.generateRandomValueBetween(5000, 8000) // vary animation duration between 2-4 seconds for the 480 px scene width
         onStopped: {
             console.debug("props reached base - change to gameover scene because the player lost")
             // changeToGameOverScene(false)
@@ -69,18 +60,8 @@ EntityBase {
         }
         SoundEffect {
           id: collisionSound
-          //source: "../../assets/img/snd/boxCollision.wav"
           source: "../../assets/wav/props.wav"
         }
-
-//        Particle {
-//          id: collisionParticleEffect
-//          // make the particles float independent from the entity position - this would be the default setting, but for making it clear it is added explicitly here as well
-//          positionType: 0
-//          //fileName: "../../assets/particle/j1.json"
-//          fileName: "../../assets/particle/FireParticle.json"//fileName: "../../assets/particle/SmokeParticle.json"
-//          //fileName: "../assets/snd/boxCollision.wav"
-//        }
 
     }
 
@@ -91,46 +72,6 @@ EntityBase {
         height: 90
         anchors.centerIn: propsImage
         visible: false
-        /*
-        Component.onCompleted: {
-            timer.start()
-        }*/
-
-//        Sprite {
-//            name: "bomb1"
-//            source: "../../assets/img/powerUpTex.png"
-//            to: { "bomb2": 1 }
-//            frameDuration: 200
-//        }
-//        Sprite {
-//            name: "bomb2"
-//            source: "../../assets/img/enemyAmmoExplo01.png"
-//            to: { "bomb3": 1 }
-//            frameDuration: 200
-//        }
-//        Sprite {
-//            name: "bomb3"
-//            source: "../../assets/img/enemyAmmoExplo02.png"
-//            to: { "bomb4": 1 }
-//            frameDuration: 200
-//        }
-//        Sprite {
-//            name: "bomb4"
-//            source: "../../assets/img/enemyAmmoExplo03.png"
-//            to: { "bomb5": 1 }
-//            frameDuration: 200
-//        }
-//        Sprite {
-//            name: "bomb5"
-//            source: "../../assets/img/enemyAmmoExplo04.png"
-//            to: { "bomb1": 1 }
-//            frameDuration: 200
-//        }
-
-//    }
-
-
-
 
 }
 }

@@ -12,8 +12,8 @@ GameWindow {
     id: gameWindow
     property alias gameWindow: gameWindow
 
-    screenHeight: 960
-    screenWidth: 640
+    screenHeight: 1280
+    screenWidth: 960
     //activeScene: menuScene
 
     Component.onCompleted: {

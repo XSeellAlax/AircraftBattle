@@ -6,19 +6,19 @@ Enemy {
     id: enemy00
     monsterImage.source: "../../assets/img/enemy00.png" //enemy picture
     width: 75
-    height: 90
+    height: 100
     //exploreH: 155
     //exploreW: 155
     score: 2
     boom:1
 
     //enemy health
-    health: 6
+    health: 8
 
     Timer {
         id: timer
         running: enemy00.visible//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
-        interval: 350 // a new target(=monster) is spawned every second
+        interval: 550 // a new target(=monster) is spawned every second
         repeat: true
         onTriggered: {
             console.log("fire")
@@ -32,7 +32,7 @@ Enemy {
         from: 0
         to: scene.height // start at the right side
 
-        duration: utils.generateRandomValueBetween(3000, 5000) // vary animation duration between 2-4 seconds for the 480 px scene width
+        duration: utils.generateRandomValueBetween(5000, 10000) // vary animation duration between 2-4 seconds for the 480 px scene width
         onStopped: {
             console.debug("monster reached base - change to gameover scene because the player lost")
             // changeToGameOverScene(false)
