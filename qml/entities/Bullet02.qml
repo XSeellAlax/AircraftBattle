@@ -3,7 +3,7 @@ import Felgo 3.0
 
 Bullet {
     id: bullet2
-    //boom: 0.5
+    //boom: 1
 
     m_width: 60
     m_height: 40

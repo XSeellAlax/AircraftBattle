@@ -69,6 +69,12 @@ Item {
             id: monster02s
         }
     }
+    Component {
+        id: enemyComponent03
+        Enemy03{
+            id: monster03s
+        }
+    }
     Boss02 {
         id: boss
         y:90
@@ -105,11 +111,12 @@ Item {
         id: timer
         running: false//scene.visible == true && splashFinished // only enable the creation timer, when the gameScene is visible
         repeat: false
-        interval: 1500 // a new target(=monster) is spawned every second
+        interval: 500 // a new target(=monster) is spawned every second
         onTriggered: {
             t0.running=true
             t1.running=true
             t2.running=true
+            t3.running=true
 
             //b3.running=true
             //entityManager.createEntityFromComponent(boss3Component)
@@ -138,9 +145,19 @@ Item {
         id: t2
         running: false
         repeat: true
-        interval: 10000
+        interval: 15000
         onTriggered: {
             entityManager.createEntityFromComponent(enemyComponent02)
+        }
+
+    }
+    Timer {
+        id: t3
+        running: false
+        repeat: true
+        interval: 40000
+        onTriggered: {
+            entityManager.createEntityFromComponent(enemyComponent03)
         }
 
     }
@@ -208,7 +225,7 @@ Item {
     Text {
         id: failText
         text: qsTr("游戏失败")
-        color: "gray"
+        color: "red"
         font.pixelSize: 100
         //visible: false
         opacity: 0.8
@@ -268,24 +285,24 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 25
-        height: 15
-        width: 450
+        height: 20
+        width: 650
         opacity: 0.6
         //radius: 200
         Rectangle{
             id: bossHealth
             color: "red"
-            height: 10
+            height: 18
             radius: 200
             anchors.verticalCenter: parent.verticalCenter
-            width: boss.health/200 * 450
+            width: boss.health/250 * 650
             SequentialAnimation on width {
                 //id: yMove
                 running: boss.visible//boss.visible
                 //loops: Animation.Infinite
                 PropertyAnimation {
                     from:0
-                    to: 450
+                    to: 650
                     duration: 2500 // 1 second for fade in
                 }
             }
@@ -417,10 +434,11 @@ Item {
 
 
     onScoreChanged: {
-        if(score>=200){
+        if(score>=250){
             t0.running=false
             t1.running=false
             t2.running=false
+            t3.running=false
             //entityManager.createEntityFromComponent(bossCompent)
             boss.visible=true
             //bossRec.visible=true

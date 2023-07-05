@@ -24,6 +24,8 @@ EntityBase {
         width: 35
         height: 35
 
+        groupIndex: -2
+
         anchors.centerIn: parent
 
         density: 0.003

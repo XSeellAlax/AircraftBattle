@@ -45,7 +45,6 @@ EntityBase {
             if(collidedEntity.entityType === "rocket") {
 
                 health-=collidedEntity.boom
-                //monstersDestroyed++
                 // remove the projectile entity
                 collisionParticleEffect.start()
                 collidedEntity.removeEntity()
@@ -54,9 +53,10 @@ EntityBase {
 
                 collisionSound.play()
                 collisionParticleEffect.start()
-                health=0
+                if(monsterImage.visible){
+                    health-=8
+                }
                 // remove the monster
-                //monster.removeEntity()
             }
             if(collidedEntity.entityType === "wall") {
                 // remove the monster
@@ -65,7 +65,6 @@ EntityBase {
         }
         SoundEffect {
           id: collisionSound
-          //source: "../../assets/img/snd/boxCollision.wav"
           source: "../../assets/wav/exploPop.wav"
         }
 
@@ -73,9 +72,7 @@ EntityBase {
           id: collisionParticleEffect
           // make the particles float independent from the entity position - this would be the default setting, but for making it clear it is added explicitly here as well
           positionType: 0
-          //fileName: "../../assets/particle/j1.json"
           fileName: "../../assets/particle/SmokeParticle.json"//fileName: "../../assets/particle/SmokeParticle.json"
-          //fileName: "../assets/snd/boxCollision.wav"
         }
 
     }

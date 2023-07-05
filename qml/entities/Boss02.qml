@@ -6,11 +6,11 @@ EntityBase {
     id: boss02
     entityType: "boss" // required for removing all of these entities when the game is lost
     property alias monsterImage: monsterImage
-    property int health: 200
+    property int health: 250
     //rotation: 270
     property int boom: 10
     x: scene.width/2 - width/2
-    y: 50
+    y: 100
 
     Rectangle {
         color:"red"
@@ -62,7 +62,7 @@ EntityBase {
     }
 
     Rectangle {
-        color: monsterImage.visible?"#FF00FF":"#8B0000"
+        color: "#8B0000"//"#8B0000monsterImage.visible?"#FF00FF":
         width: 45
         height: 32
         visible: health>0
@@ -75,18 +75,18 @@ EntityBase {
             running: monsterImage.visible
             loops: Animation.Infinite
             PropertyAnimation {
-                to: 0
-                duration: 800 // 1 second for fade out
+                to: 0.05
+                duration: monsterImage.visible? 800:300 // 1 second for fade out
             }
             PropertyAnimation {
-                to: 0.25//monsterImage.visible? 0.3 : 1
-                duration: 800 // 1 second for fade in
+                to: 0.6//monsterImage.visible? 0.3 : 1
+                duration: monsterImage.visible? 800:300 // 1 second for fade in
             }
         }
 
     }
     Rectangle {
-        color: monsterImage.visible?"#FF00FF":"#8B0000"
+        color: "#8B0000"//monsterImage.visible?"#FF00FF":
         width: 45
         height: 32
         visible: health>0
@@ -100,11 +100,11 @@ EntityBase {
             loops: Animation.Infinite
             PropertyAnimation {
                 to: 0.05
-                duration: 800 // 1 second for fade out
+                duration: monsterImage.visible? 800:300 // 1 second for fade out
             }
             PropertyAnimation {
-                to:0.3//monsterImage.visible?0.3:1
-                duration: 800 // 1 second for fade in
+                to:0.6//monsterImage.visible?0.3:1
+                duration: monsterImage.visible? 800:300 // 1 second for fade in
             }
         }
 
@@ -142,8 +142,8 @@ EntityBase {
     MultiResolutionImage {
         id: monsterImage
         source: "../../assets/img/boss.png"
-        width: 200
-        height: 250
+        width: 260
+        height: 320
         anchors.centerIn: parent
         visible: false
 
@@ -206,7 +206,7 @@ EntityBase {
     Timer {
         id: t2
         running: monsterImage.visible
-        interval: 800
+        interval: 50
         repeat: true
         onTriggered: {
             fireDo2()
@@ -216,10 +216,20 @@ EntityBase {
     Timer {
         id: t3
         running: false
-        interval: 50
+        interval: 40
         repeat: true
         onTriggered: {
             fireDo3()
+        }
+    }
+
+    Timer {
+        id: t4
+        running: false
+        interval: 50
+        repeat: true
+        onTriggered: {
+            fireDo4()
         }
     }
 
@@ -227,28 +237,43 @@ EntityBase {
         var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
         //console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
 
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-105, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3600})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-90, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3800})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-75, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3900})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-115, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3600})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-100, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3800})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-85, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3900})
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet02.qml"), {"x": imagePointInWorldCoordinates.x-40, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":8900})
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":4500})
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet02.qml"), {"x": imagePointInWorldCoordinates.x+40, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":8900})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+75, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3900})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+90, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3800})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+105, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3600})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+85, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3900})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+100, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3800})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+115, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":3600})
 
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation})
     }
+    property int rot: 0
     function fireDo2(){
-         var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket1.qml"), {"x": imagePointInWorldCoordinates.x-40, "y": imagePointInWorldCoordinates.y-75, "rotation": boss.rotation,"power":5900})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket1.qml"), {"x": imagePointInWorldCoordinates.x+40, "y": imagePointInWorldCoordinates.y-75, "rotation": boss.rotation,"power":5900})
+        var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet03.qml"), {"x": imagePointInWorldCoordinates.x+40, "y": imagePointInWorldCoordinates.y-90, "rotation": boss.rotation+rot})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet03.qml"), {"x": imagePointInWorldCoordinates.x-40, "y": imagePointInWorldCoordinates.y-90, "rotation": boss.rotation+rot})
+        rot+= 15
+        if(rot==360){
+            rot=0
+        }
     }
 
     function fireDo3(){
          var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet02.qml"), {"x": imagePointInWorldCoordinates.x-40, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":10900})
         entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet02.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":10900})
+    }
+    property int rot2: 0
+    function fireDo4(){
+        var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket1.qml"), {"entityId:":"xt1"+num,"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y-200, "rotation": 90+rot2,"power":10900})
+        //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet03.qml"), {"entityId:":"xt2"+num,"x": imagePointInWorldCoordinates.x+60, "y": imagePointInWorldCoordinates.y+75, "rotation": 90-rot2})
+        rot2+=15
+        if(rot2==360){
+            rot2=0
+        }
     }
 
     //x: utils.generateRandomValueBetween(monsterImage.width, scene.width - monsterImage.width-20)
@@ -304,13 +329,14 @@ EntityBase {
     }
 
     onHealthChanged: {
-        if(health<100){
+        if(health<180){
             //timer.interval=320
             t3.running=true
-            timer.running=false
+            t4.running=true
+            //timer.running=false
         }
-        if(health<=80){
-            timer.interval=80
+        if(health<=120){
+            timer.interval=380
             xMove.running=true
             yMove.running=true
         }

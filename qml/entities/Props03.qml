@@ -14,6 +14,17 @@ Props {
         source: "../../assets/img/superBomb.png"
         anchors.fill: parent
         z: -1
+        SequentialAnimation on opacity {
+            loops: Animation.Infinite
+            PropertyAnimation {
+                to: 0.5
+                duration: 1000 // 1 second for fade out
+            }
+            PropertyAnimation {
+                to: 1
+                duration: 1000 // 1 second for fade in
+            }
+        }
     }
     RotationAnimation {
             id: rotationAnimation

@@ -74,7 +74,7 @@ EntityBase {
         z: 999
         Image {
             id: name
-            source: "../../assets/img/heroSuper.png"
+            source: "../../assets/img/life.png"
             anchors.fill: parent
         }
         SequentialAnimation on opacity {
@@ -223,7 +223,7 @@ EntityBase {
             }
             if(component.entityType === "ShieldProp") {
 
-                defenses=20
+                defenses=50
             }
             if(defenses<0){
                 defenses=0
@@ -289,6 +289,7 @@ EntityBase {
         }
     }
 
+    property int num: 0
     function handleInputAction(action) {
         if( action === "fire") {
             fires++
@@ -299,16 +300,17 @@ EntityBase {
             //console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
 
             // create the rocket at the specified position with the rotation of the car that fires it
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"entityId":"n1"+num,"x": imagePointInWorldCoordinates.x-15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
 
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket.qml"), {"entityId":"n2"+num,"x": imagePointInWorldCoordinates.x+15, "y": imagePointInWorldCoordinates.y+45, "rotation": plane.rotation})
             if(test1&&fires%2==0) {
                 entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo01.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
             }
             if(test2) {
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"x": imagePointInWorldCoordinates.x-35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
-                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"x": imagePointInWorldCoordinates.x+35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"entityId":"n3"+num,"x": imagePointInWorldCoordinates.x-35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
+                entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("HeroAmmo02.qml"), {"entityId":"n4"+num,"x": imagePointInWorldCoordinates.x+35, "y": imagePointInWorldCoordinates.y+80, "rotation": plane.rotation})
             }
+            num++
 
         }
     }/*

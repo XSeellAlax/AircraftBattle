@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.2, 2023-07-04T20:42:43. -->
+<!-- Written by QtCreator 7.0.2, 2023-07-06T02:12:24. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -238,8 +238,9 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/root/Plane/plane.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/root/Plane/plane.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">plane2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/root/Test/Plane/plane.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/root/Test/Plane/plane.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>

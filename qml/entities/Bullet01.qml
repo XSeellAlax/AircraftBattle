@@ -10,4 +10,5 @@ Bullet {
     power: 4000
     m_image.source: "../../assets/img/enemyAmmo00.png"
 
+
 }

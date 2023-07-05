@@ -30,6 +30,8 @@ EntityBase {
         friction: 0.4
         restitution: 0.5
 
+        groupIndex: -2
+
         body.fixedRotation: true
 
         //property var lastWall: null

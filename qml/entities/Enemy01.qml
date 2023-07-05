@@ -10,6 +10,7 @@ Enemy {
     //exploreW: 130
 
     boom: 2
+    score: 1
 
     health: 5
     //newX:utils.generateRandomValueBetween(monsterImage.width, scene.width - monsterImage.width-20)+10
@@ -86,14 +87,19 @@ Enemy {
             // changeToGameOverScene(false)
         }
     }
-
-
+    property int num: 0 //
     function fireDo(){
         var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
+        var test = imagePointInWorldCoordinates
+        var dection = Math.atan((test.x-myPlane.x)/(myPlane.y-test.y))*180
+        console.log("----------------"+dection)
 
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet01.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+170, "rotation": 90})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet01.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+120, "rotation": 90})
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet01.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+70, "rotation": 90})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet01.qml"), {"entityId:":"t1"+num,"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+170, "rotation": 90})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet01.qml"), {"entityId:":"t2"+num,"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+120, "rotation": 90})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet01.qml"), {"entityId:":"t3"+num,"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+70, "rotation": 90})
+        //console.log("------------------------------------------------------")
+        num++
+
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x-40, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation})
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation,"power":4500})
         //entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Rocket2.qml"), {"x": imagePointInWorldCoordinates.x+40, "y": imagePointInWorldCoordinates.y, "rotation": boss.rotation})

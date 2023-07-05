@@ -4,10 +4,7 @@ import Felgo 3.0
 Props {
     id: bloodprop
     entityType:"BloodProp"
-    Image{
-    id:bloodImage
-    source: "../../assets/img/blood.png"
-    anchors.fill: parent
-    }
+
+    propsImage: "../../assets/img/blood.png"
 
 }

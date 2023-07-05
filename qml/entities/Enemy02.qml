@@ -9,6 +9,7 @@ Enemy {
     exploreH: 160
     exploreW: 160
     boom: 5
+    score: 10
 
     SequentialAnimation on x {
         running: enemy02.visible
@@ -60,14 +61,14 @@ Enemy {
 
         }
     }
-
+    property int num: 0
     function fireDo(){
         var imagePointInWorldCoordinates = mapToItem(level,monsterImage.imagePoints[0].x, monsterImage.imagePoints[0].y)
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet02.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+100, "rotation": 90})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet02.qml"), {"entityId":"e1"+num,"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y+100, "rotation": 90})
+        num++
 
     }
 
-    score: 5
 
     health: 12
 }

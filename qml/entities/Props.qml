@@ -3,11 +3,9 @@ import Felgo 3.0
 import "../scene"
 EntityBase {
     id: props
-    entityType: "props" // required for removing all of these entities when the game is lost
-    //property alias monsterImage: propsImage
-    //property int health: 6
-    //rotation: 270
-    property alias propsImage: propsImage
+    entityType: "props"
+
+    property alias propsImage: propsImage.source
 
     property alias boxContol: boxCollider
     width: 60
@@ -62,16 +60,5 @@ EntityBase {
           id: collisionSound
           source: "../../assets/wav/props.wav"
         }
-
     }
-
-
-    SpriteSequence {
-        id: sprites
-        width: 90
-        height: 90
-        anchors.centerIn: propsImage
-        visible: false
-
-}
 }
